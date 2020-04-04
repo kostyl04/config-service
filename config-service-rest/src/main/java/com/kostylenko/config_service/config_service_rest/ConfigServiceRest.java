@@ -1,13 +1,12 @@
-package com.kostylenko.configservice;
+package com.kostylenko.config_service.config_service_rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConfigServiceApplication {
+public class ConfigServiceRest {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigServiceApplication.class, args);
+        SpringApplication.run(ConfigServiceRest.class, args);
     }
-
 }
