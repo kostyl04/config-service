@@ -14,7 +14,7 @@ public class ConfigController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Config create(@Valid @RequestBody Config config) {
+    public Config createConfig(@Valid @RequestBody Config config) {
         return config;
     }
 

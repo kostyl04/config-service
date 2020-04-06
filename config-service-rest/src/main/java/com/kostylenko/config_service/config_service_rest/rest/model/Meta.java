@@ -1,7 +1,7 @@
 package com.kostylenko.config_service.config_service_rest.rest.model;
 
 import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Exclude;
+import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +12,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Meta {
 
+    @Include
     @NotBlank
     private String name;
-    @Exclude
     @NotEmpty
     private Set<@Valid Field> fields;
     @NotBlank

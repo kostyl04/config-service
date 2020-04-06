@@ -20,13 +20,13 @@ public class MetaController {
     }
 
     @GetMapping
-    public List<Meta> getAllMeta() {
+    public List<Meta> getMetas() {
         return null;
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Meta create(@Valid @RequestBody Meta meta) {
+    public Meta createMeta(@Valid @RequestBody Meta meta) {
         return null;
     }
 

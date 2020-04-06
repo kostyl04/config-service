@@ -1,6 +1,8 @@
 package com.kostylenko.config_service.config_service_rest.rest.service;
 
+import com.kostylenko.config_service.config_service_rest.rest.model.ConfigKey;
 import com.kostylenko.config_service.config_service_rest.rest.model.Parameter;
+import com.kostylenko.config_service.config_service_rest.rest.model.ParameterKey;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,43 +19,30 @@ public class ParameterController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Parameter create(@PathVariable String appName,
-                            @PathVariable String configName,
-                            @PathVariable String version,
-                            @Valid @RequestBody Parameter parameter) {
+    public Parameter createConfigParameter(ConfigKey configKey,
+                                           @Valid @RequestBody Parameter parameter) {
         return null;
     }
 
     @GetMapping(value = "/{name}")
-    public Parameter getByName(@PathVariable String appName,
-                               @PathVariable String configName,
-                               @PathVariable String version,
-                               @PathVariable String name) {
+    public Parameter getConfigParameter(ParameterKey parameterKey) {
         return null;
     }
 
     @GetMapping
-    public List<Parameter> getAll(@PathVariable String appName,
-                                  @PathVariable String configName,
-                                  @PathVariable String version) {
+    public List<Parameter> getConfigParameters(ConfigKey configKey) {
         return null;
     }
 
     @PutMapping(value = "/{name}")
-    public Parameter update(@PathVariable String appName,
-                            @PathVariable String configName,
-                            @PathVariable String version,
-                            @PathVariable String name,
+    public Parameter updateConfigParameter(ParameterKey parameterKey,
                             @Valid @RequestBody Parameter parameter) {
         return null;
     }
 
     @DeleteMapping(value = "/{name}")
     @ResponseStatus(NO_CONTENT)
-    public Parameter delete(@PathVariable String appName,
-                            @PathVariable String configName,
-                            @PathVariable String version,
-                            @PathVariable String name) {
+    public Parameter deleteConfigParameter(ParameterKey parameterKey) {
         return null;
     }
 }
