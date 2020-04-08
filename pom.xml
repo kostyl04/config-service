@@ -18,6 +18,7 @@
         <servlet.api.version>4.0.1</servlet.api.version>
         <spring.version>5.2.2.RELEASE</spring.version>
         <junit.version>5.5.2</junit.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <modules>
@@ -51,6 +52,18 @@
                         <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
         </dependencies>

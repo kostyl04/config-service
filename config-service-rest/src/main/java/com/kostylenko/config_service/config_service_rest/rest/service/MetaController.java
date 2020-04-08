@@ -14,6 +14,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "api/meta", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 public class MetaController {
 
+    @PostMapping
+    @ResponseStatus(CREATED)
+    public Meta createMeta(@Valid @RequestBody Meta meta) {
+        return null;
+    }
+
     @GetMapping(value = "/{metaName}")
     public Meta getMeta(@PathVariable String metaName) {
         return null;
@@ -21,12 +27,6 @@ public class MetaController {
 
     @GetMapping
     public List<Meta> getMetas() {
-        return null;
-    }
-
-    @PostMapping
-    @ResponseStatus(CREATED)
-    public Meta createMeta(@Valid @RequestBody Meta meta) {
         return null;
     }
 
