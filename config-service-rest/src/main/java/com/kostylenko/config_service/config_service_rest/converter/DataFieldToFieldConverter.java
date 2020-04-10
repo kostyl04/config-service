@@ -12,11 +12,7 @@ public class DataFieldToFieldConverter extends BaseConverter<Field, com.kostylen
     public com.kostylenko.config_service.config_service_rest.domain.model.Field convert(Field from, com.kostylenko.config_service.config_service_rest.domain.model.Field to) {
         to.setName(from.getName());
         to.setKey(from.isKey());
-        if (to.isKey()) {
-            to.setNullable(false);
-        } else {
-            to.setNullable(from.isNullable());
-        }
+        to.setNullable(from.isNullable());
         to.setType(mapper.map(from.getType(), Type.class));
         return to;
     }

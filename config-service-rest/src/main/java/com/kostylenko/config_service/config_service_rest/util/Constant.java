@@ -6,23 +6,13 @@ import lombok.experimental.UtilityClass;
 public class Constant {
 
     @UtilityClass
-    public class LoggerMessages {
-
-        public String null_set_of_fields = "Meta shouldn't have null set of fields";
-        public String no_key_fields = "Meta should have at least one key field";
-        public String no_meta_with_name = "no meta with name {}";
-        public String meta_already_exists = "Meta {} already exists";
-
-    }
-
-    @UtilityClass
     public class ExceptionMessages {
 
-        public String null_set_of_fields = "meta.has.null.set.of.fields";
-        public String no_key_fields = "meta.has.no.key.fields";
-        public String no_meta_with_name = "no.meta.with.name.";
-        public String meta_already_exists = "meta.already.exists";
-
+        public String NULL_SET_OF_FIELDS = "meta.has.empty.set.of.fields";
+        public String NO_KEY_FIELDS = "meta.has.no.key.fields";
+        public String NO_META_WITH_NAME = "no.meta.with.name.";
+        public String META_ALREADY_EXISTS = "meta.already.exists";
+        public String NO_METAS = "no.metas";
     }
 
 }

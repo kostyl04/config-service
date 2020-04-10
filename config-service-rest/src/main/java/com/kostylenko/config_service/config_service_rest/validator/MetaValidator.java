@@ -1,7 +1,6 @@
 package com.kostylenko.config_service.config_service_rest.validator;
 
 import com.kostylenko.common.common_http.exception.BadRequestApiException;
-import com.kostylenko.common.common_http.exception.NotFoundApiException;
 import com.kostylenko.config_service.config_service_rest.domain.model.Field;
 import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 import com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages;
-import com.kostylenko.config_service.config_service_rest.util.Constant.LoggerMessages;
+
 import static java.util.Objects.isNull;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
@@ -18,22 +17,15 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 @Slf4j
 public class MetaValidator {
 
-    public void validateMetaWithNoKeyFields(Meta meta) {
-        if (isNull(meta.getFields())) {
-            log.warn(LoggerMessages.null_set_of_fields);
-            throw new BadRequestApiException(ExceptionMessages.null_set_of_fields);
+    public void validate(Meta meta) {
+        if (isNull(meta.getFields()) || isEmpty(meta.getFields())) {
+            log.warn("Meta shouldn't have empty set of fields");
+            throw new BadRequestApiException(ExceptionMessages.NULL_SET_OF_FIELDS);
         }
-        Optional<Field> first = meta.getFields().stream().filter(Field::isKey).findFirst();
-        if (isEmpty(meta.getFields()) || first.isEmpty()) {
-            log.warn(LoggerMessages.no_key_fields);
-            throw new BadRequestApiException(ExceptionMessages.no_key_fields);
-        }
-    }
-
-    public void validateNullMeta(Meta meta, String name) {
-        if (isNull(meta)) {
-            log.warn(LoggerMessages.no_meta_with_name, name);
-            throw new NotFoundApiException(ExceptionMessages.no_meta_with_name + name);
+        boolean isEmpty = meta.getFields().stream().filter(Field::isKey).findFirst().isEmpty();
+        if (isEmpty) {
+            log.warn("Meta should have at least one key field");
+            throw new BadRequestApiException(ExceptionMessages.NO_KEY_FIELDS);
         }
     }
 

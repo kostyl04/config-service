@@ -19,6 +19,7 @@ import java.util.Set;
 public class Meta {
 
     @Id
+    @Include
     private String id;
     @Include
     private String name;

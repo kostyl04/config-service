@@ -11,11 +11,7 @@ public class FieldToApiFieldConverter extends BaseConverter<Field, com.kostylenk
     public com.kostylenko.config_service.config_service_rest.rest.model.Field convert(Field from, com.kostylenko.config_service.config_service_rest.rest.model.Field to) {
         to.setName(from.getName());
         to.setKey(from.isKey());
-        if (to.isKey()) {
-            to.setNullable(false);
-        } else {
-            to.setNullable(from.isNullable());
-        }
+        to.setNullable(from.isNullable());
         to.setType(from.getType().name());
         return to;
     }
