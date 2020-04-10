@@ -9,4 +9,5 @@ public class ConfigServiceRest {
     public static void main(String[] args) {
         SpringApplication.run(ConfigServiceRest.class, args);
     }
+
 }

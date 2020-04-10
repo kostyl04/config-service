@@ -19,7 +19,7 @@ public class Field {
     @Include
     @NotBlank
     private String name;
-    private boolean nullable;
+    private boolean nullable = true;
     private boolean key;
     @NotEmpty
     @Pattern(regexp = "long|string|list|map|float|boolean", flags = CASE_INSENSITIVE)
