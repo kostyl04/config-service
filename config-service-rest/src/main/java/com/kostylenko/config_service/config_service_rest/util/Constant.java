@@ -1,18 +1,20 @@
 package com.kostylenko.config_service.config_service_rest.util;
 
-import lombok.experimental.UtilityClass;
+public final class Constant {
 
-@UtilityClass
-public class Constant {
-
-    @UtilityClass
-    public class ExceptionMessages {
-
-        public String NULL_SET_OF_FIELDS = "meta.has.empty.set.of.fields";
-        public String NO_KEY_FIELDS = "meta.has.no.key.fields";
-        public String NO_META_WITH_NAME = "no.meta.with.name.";
-        public String META_ALREADY_EXISTS = "meta.already.exists";
-        public String NO_METAS = "no.metas";
+    private Constant() {
     }
 
+    public static class ExceptionMessages {
+
+        private ExceptionMessages() {
+        }
+
+        public static final String EMPTY_META_FIELDS = "empty.meta.fields";
+        public static final String KEY_FIELD_NOT_FOUND = "key.field.not.found";
+        public static final String META_NOT_FOUND = "meta.not.found";
+        public static final String META_ALREADY_EXISTS = "meta.already.exists";
+
+        public static final String CONFIG_ALREADY_EXISTS = "config.already.exists";
+    }
 }
