@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Getter
@@ -17,6 +18,7 @@ public class Meta {
 
     @Include
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z]*")
     private String name;
     @NotEmpty
     private Set<@Valid Field> fields;

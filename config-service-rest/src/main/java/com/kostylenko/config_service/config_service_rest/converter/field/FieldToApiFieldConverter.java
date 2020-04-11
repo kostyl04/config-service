@@ -1,4 +1,4 @@
-package com.kostylenko.config_service.config_service_rest.converter;
+package com.kostylenko.config_service.config_service_rest.converter.field;
 
 import com.kostylenko.common.common_mapper.domain.converter.BaseConverter;
 import com.kostylenko.config_service.config_service_rest.domain.model.Field;

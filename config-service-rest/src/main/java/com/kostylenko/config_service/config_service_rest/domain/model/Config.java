@@ -5,18 +5,18 @@ import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Meta {
+public class Config {
 
     @Include
     private String id;
     @Include
-    private String name;
-    private Set<Field> fields;
-    private String keyDelimiter;
+    private ConfigKey configKey;
+    private Meta meta;
+    private List<Parameter> parameters;
 
 }
