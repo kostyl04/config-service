@@ -5,8 +5,8 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: 
         name: kostylenko/my-rep:latest
-        username: $DOCKER_HUB_USER
-        password: $DOCKER_HUB_PASSWORD
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
 
 pipelines:
   branches:
