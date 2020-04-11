@@ -3,15 +3,11 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: maven:3.6.1
+image: kostylenko:my-rep
 
 pipelines:
   branches:
     master:
-      - step:
-          name: maven setup
-          script: 
-           - bash ./CONFIGURE-MAVEN.SH
       - step:
           name: Run tests
           caches:
