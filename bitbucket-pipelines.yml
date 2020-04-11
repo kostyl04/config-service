@@ -3,7 +3,10 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: kostylenko/my-rep:latest
+image: 
+        name: kostylenko/my-rep:latest
+        username: $DOCKER_HUB_USER
+        password: $DOCKER_HUB_PASSWORD
 
 pipelines:
   branches:
