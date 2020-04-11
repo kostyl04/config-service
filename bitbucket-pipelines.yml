@@ -9,6 +9,11 @@ pipelines:
   branches:
     master:
       - step:
+          name: maven setup
+          script: 
+           - bash ./CONFIGURE-MAVEN.SH
+      - step:
+          name: Run tests
           caches:
             - maven
           script: # Modify the commands below to build your repository.
