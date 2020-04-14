@@ -1,4 +1,4 @@
-package com.kostylenko.config_service.config_service_rest.validator;
+package com.kostylenko.config_service.config_service_rest.domain.service.validator;
 
 import com.kostylenko.common.common_http.exception.BadRequestApiException;
 import com.kostylenko.config_service.config_service_rest.domain.model.Field;

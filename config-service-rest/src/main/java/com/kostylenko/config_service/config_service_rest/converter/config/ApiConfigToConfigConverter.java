@@ -16,7 +16,7 @@ public class ApiConfigToConfigConverter extends BaseConverter<Config, com.kostyl
         Meta meta = new Meta();
         meta.setName(from.getMetaName());
         to.setMeta(meta);
-        to.setParameters(mapper.mapToList(from.getParameters(), Parameter.class));
+        to.setParameters(mapper.mapToSet(from.getParameters(), Parameter.class));
         return to;
     }
 }

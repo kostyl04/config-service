@@ -1,11 +1,16 @@
 package com.kostylenko.config_service.config_service_rest.domain.model;
 
+import com.kostylenko.common.common_http.exception.InternalServerErrorException;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Getter
 @Setter
@@ -17,6 +22,25 @@ public class Config {
     @Include
     private ConfigKey configKey;
     private Meta meta;
-    private List<Parameter> parameters;
+    private Set<Parameter> parameters;
 
+    public Meta getMeta() {
+        if (isNull(meta)) {
+            throw new InternalServerErrorException();
+        }
+        return meta;
+    }
+
+    public void addParameter(Parameter parameter) {
+        if (nonNull(parameter)) {
+            getParameters().add(parameter);
+        }
+    }
+
+    public Set<Parameter> getParameters() {
+        if (isNull(parameters)) {
+            parameters = new HashSet<>();
+        }
+        return parameters;
+    }
 }

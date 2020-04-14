@@ -18,6 +18,7 @@ public class Field {
 
     @Include
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z0-9]*")
     private String name;
     private boolean nullable = true;
     private boolean key;

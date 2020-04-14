@@ -18,10 +18,10 @@ public class Meta {
 
     @Include
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z]*")
+    @Pattern(regexp = "[a-zA-Z0-9]*")
     private String name;
     @NotEmpty
     private Set<@Valid Field> fields;
-    @NotBlank
+    @Pattern(regexp = "[:_-]")
     private String keyDelimiter;
 }

@@ -10,7 +10,7 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +26,7 @@ public class Config {
     private ConfigKey configKey;
     @DBRef
     private Meta meta;
-    private List<Parameter> parameters;
+    @DBRef
+    private Set<Parameter> parameters;
 
 }
