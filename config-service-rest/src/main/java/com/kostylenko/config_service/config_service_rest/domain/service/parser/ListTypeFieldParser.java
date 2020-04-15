@@ -22,8 +22,7 @@ public class ListTypeFieldParser extends AbstractTypeFieldParser<List> {
     @Override
     public List parse(Object value) throws TypeFieldParseException {
         if (!(value instanceof List)) {
-            log.warn("Invalid parsing value {}", value);
-            throw new TypeFieldParseException(INVALID_PARSING_VALUE);
+            throw getTypeFieldParseException(value);
         }
         List tempList = (List) value;
         List<String> result = new ArrayList<>();

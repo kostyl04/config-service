@@ -13,13 +13,13 @@ import javax.validation.constraints.Pattern;
 public class ConfigKey {
 
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z0-9]*")
+    @Pattern(regexp = "\\w{3,}[._-]\\w+")
     private String appName;
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z0-9]*")
+    @Pattern(regexp = "\\w{3,}[._-]\\w+")
     private String configName;
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z0-9]*")
+    @Pattern(regexp = "(?!\\.)(\\d+(\\.\\d+)+)")
     private String version;
 
 }

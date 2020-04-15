@@ -20,7 +20,6 @@ public class Config {
 
     @Valid
     private ConfigKey configKey;
-
     @NotBlank
     @JsonProperty(access = WRITE_ONLY)
     private String metaName;

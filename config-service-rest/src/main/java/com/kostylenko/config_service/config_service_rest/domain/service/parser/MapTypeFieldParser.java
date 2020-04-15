@@ -22,8 +22,7 @@ public class MapTypeFieldParser extends AbstractTypeFieldParser<Map<String, Stri
     @Override
     public Map<String, String> parse(Object value) throws TypeFieldParseException {
         if (!(value instanceof Map)) {
-            log.warn("Invalid parsing value {}", value);
-            throw new TypeFieldParseException(INVALID_PARSING_VALUE);
+            throw getTypeFieldParseException(value);
         }
         Map tempMap = (Map) value;
         Map<String, String> result = new HashMap<>();

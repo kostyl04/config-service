@@ -42,16 +42,18 @@ public class ConfigService {
 
     public Config getConfig(ConfigKey configKey) {
         var dataConfigKey = mapper.map(configKey, com.kostylenko.config_service.config_service_rest.data.model.ConfigKey.class);
-        return mapper.map(configRepository.getByConfigKey(dataConfigKey), Config.class);
+        return mapper.map(configRepository.findByConfigKey(dataConfigKey), Config.class);
     }
 
     @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
     public Config updateConfig(Config config) {
-        boolean exists = configRepository.existsByConfigKey(mapper.map(config.getConfigKey(), com.kostylenko.config_service.config_service_rest.data.model.ConfigKey.class));
-        if (!exists) {
+        var dataConfigKey = mapper.map(config.getConfigKey(), com.kostylenko.config_service.config_service_rest.data.model.ConfigKey.class);
+        Config receivedConfig = mapper.map(configRepository.findByConfigKey(dataConfigKey), Config.class);
+        if (isNull(receivedConfig)) {
             throw new BadRequestApiException(NO_CONFIG_TO_UPDATE);
         }
-        var updatedConfig = configRepository.save(mapper.map(config, com.kostylenko.config_service.config_service_rest.data.entity.Config.class));
+        mapper.map(config, receivedConfig, "update");
+        var updatedConfig = configRepository.save(mapper.map(receivedConfig, com.kostylenko.config_service.config_service_rest.data.entity.Config.class));
         return mapper.map(updatedConfig, Config.class);
     }
 

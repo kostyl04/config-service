@@ -5,13 +5,16 @@ import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.CORRUPTED_CONFIG;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Slf4j
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -26,7 +29,8 @@ public class Config {
 
     public Meta getMeta() {
         if (isNull(meta)) {
-            throw new InternalServerErrorException();
+            log.warn("Corrupted config {}", configKey);
+            throw new InternalServerErrorException(CORRUPTED_CONFIG);
         }
         return meta;
     }

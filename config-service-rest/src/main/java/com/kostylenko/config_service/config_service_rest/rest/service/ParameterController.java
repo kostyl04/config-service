@@ -29,9 +29,9 @@ public class ParameterController {
     @ResponseStatus(CREATED)
     public Parameter createConfigParameter(ConfigKey configKey,
                                            @Valid @RequestBody Parameter parameter) {
-        var savedParameter = parameterService.createParameter(
-                mapper.map(configKey, com.kostylenko.config_service.config_service_rest.domain.model.ConfigKey.class),
-                mapper.map(parameter, com.kostylenko.config_service.config_service_rest.domain.model.Parameter.class));
+        var domainConfigKey = mapper.map(configKey, com.kostylenko.config_service.config_service_rest.domain.model.ConfigKey.class);
+        var domainParameter = mapper.map(parameter, com.kostylenko.config_service.config_service_rest.domain.model.Parameter.class);
+        var savedParameter = parameterService.createParameter(domainConfigKey, domainParameter);
         return mapper.map(savedParameter, Parameter.class);
     }
 

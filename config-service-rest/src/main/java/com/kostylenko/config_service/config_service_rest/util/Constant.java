@@ -17,12 +17,13 @@ public final class Constant {
 
         public static final String CONFIG_ALREADY_EXISTS = "config.already.exists";
         public static final String CONFIG_NOT_FOUND = "config.not.found";
-        public static final String INVALID_PARSING_VALUE = "invalid.parsing.value";
-        public static final String VALUE_CAN_NOT_BE_NULL = "value.can.not.be.null";
-        public static final String INVALID_VALUE = "invalid.value";
-        public static final String VALUE_HAS_NO_KEY_FIELD = "value.has.no.key.field";
-        public static final String NO_CONFIG_TO_UPDATE = "no.config.to.update";
         public static final String CORRUPTED_CONFIG = "corrupted.config";
+        public static final String NO_CONFIG_TO_UPDATE = "no.config.to.update";
 
+        public static final String VALUE_HAS_NO_KEY_FIELD = "value.has.no.key.field";
+        public static final String VALUE_CAN_NOT_BE_NULL = "value.can.not.be.null";
+        public static final String INVALID_PARSING_VALUE = "invalid.parsing.value";
+
+        public static final String PARAMETER_ALREADY_EXISTS = "parameter.already.exists";
     }
 }

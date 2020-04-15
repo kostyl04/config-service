@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.INVALID_VALUE;
 import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.VALUE_CAN_NOT_BE_NULL;
 import static java.util.Objects.isNull;
 
@@ -40,8 +39,9 @@ public class FieldParser {
             try {
                 result.put(field.getName(), parser.parse(objectValue));
             } catch (TypeFieldParseException e) {
-                log.warn("Invalid value {}", objectValue);
-                throw new BadRequestApiException(INVALID_VALUE);
+                log.warn("value {} cannot be parse to " + field.getType(), objectValue);
+                throw new BadRequestApiException(e.getMessage());
+                //TODO when we extend common with exception arguments logic, to implement it here
             }
         });
         return result;

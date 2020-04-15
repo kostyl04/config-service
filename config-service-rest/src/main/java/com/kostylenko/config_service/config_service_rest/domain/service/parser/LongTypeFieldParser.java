@@ -20,8 +20,7 @@ public class LongTypeFieldParser extends AbstractTypeFieldParser<Long> {
         try {
             return Long.valueOf(value.toString());
         } catch (Exception e) {
-            log.warn("Invalid parsing value {}", value);
-            throw new TypeFieldParseException(INVALID_PARSING_VALUE);
+            throw getTypeFieldParseException(value);
         }
     }
 }

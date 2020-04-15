@@ -1,7 +1,6 @@
 package com.kostylenko.config_service.config_service_rest.domain.service;
 
 import com.kostylenko.common.common_http.exception.BadRequestApiException;
-import com.kostylenko.common.common_http.exception.InternalServerErrorException;
 import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
 import com.kostylenko.config_service.config_service_rest.data.repository.ParameterRepository;
 import com.kostylenko.config_service.config_service_rest.domain.model.*;
@@ -15,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.CONFIG_NOT_FOUND;
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.CORRUPTED_CONFIG;
+import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.*;
 import static java.util.Objects.isNull;
 
 @Slf4j
@@ -39,11 +37,13 @@ public class ParameterService {
         }
         ParameterKey parameterKey = parameterKeyFactory.buildParameterKey(config, parameter);
         parameter.setParameterKey(parameterKey);
-        Meta meta = config.getMeta();
-        if (isNull(meta)) {
-            log.warn("Corrupted config {}", config);
-            throw new InternalServerErrorException(CORRUPTED_CONFIG);
+        var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
+        boolean exists = parameterRepository.existsByParameterKey(dataParameterKey);
+        if (exists){
+            log.warn("parameter already exists {}", dataParameterKey);
+            throw new BadRequestApiException(PARAMETER_ALREADY_EXISTS);
         }
+        Meta meta = config.getMeta();
         Map<String, Object> parse = fieldParser.parse(meta, parameter.getValue());
         parameter.setValue(parse);
         var savedParameter = parameterRepository.save(mapper.map(parameter, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class));
