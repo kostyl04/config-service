@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.VALUE_HAS_NO_KEY_FIELD;
+import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.KEY_VALUE_CANNOT_BE_NULL;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
@@ -33,8 +33,8 @@ public class ParameterKeyFactory {
         keyFields.forEach(keyField -> {
             Object keyFieldValue = value.get(keyField.getName());
             if (isNull(keyFieldValue)) {
-                log.warn("Value has no key field");
-                throw new BadRequestApiException(VALUE_HAS_NO_KEY_FIELD);
+                log.warn("key value {} cannot be null", keyField.getName());
+                throw new BadRequestApiException(KEY_VALUE_CANNOT_BE_NULL);
             }
             keyValues.add(keyFieldValue.toString());
         });

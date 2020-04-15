@@ -48,7 +48,10 @@ public class ParameterController {
     @PutMapping(value = "/{name}")
     public Parameter updateConfigParameter(ParameterKey parameterKey,
                             @Valid @RequestBody Parameter parameter) {
-        return null;
+        parameter.setParameterKey(parameterKey);
+        var parameterToUpdate = mapper.map(parameter, com.kostylenko.config_service.config_service_rest.domain.model.Parameter.class);
+        var savedParameter = parameterService.updateParameter(parameterToUpdate);
+        return mapper.map(savedParameter, Parameter.class);
     }
 
     @DeleteMapping(value = "/{name}")

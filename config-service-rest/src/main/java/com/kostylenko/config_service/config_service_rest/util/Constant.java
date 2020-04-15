@@ -20,10 +20,11 @@ public final class Constant {
         public static final String CORRUPTED_CONFIG = "corrupted.config";
         public static final String NO_CONFIG_TO_UPDATE = "no.config.to.update";
 
-        public static final String VALUE_HAS_NO_KEY_FIELD = "value.has.no.key.field";
-        public static final String VALUE_CAN_NOT_BE_NULL = "value.can.not.be.null";
+        public static final String KEY_VALUE_CANNOT_BE_NULL = "key.value.cannot.be.null";
+        public static final String VALUE_CAN_NOT_BE_NULL = "value.cannot.be.null";
         public static final String INVALID_PARSING_VALUE = "invalid.parsing.value";
 
         public static final String PARAMETER_ALREADY_EXISTS = "parameter.already.exists";
+        public static final String PARAMETER_DOES_NOT_EXISTS = "parameter.does.not.exists";
     }
 }
