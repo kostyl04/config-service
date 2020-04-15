@@ -7,12 +7,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
-public class ConfigKey {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ParameterKey extends ConfigKey {
 
-    private String appName;
-    private String configName;
-    private String version;
+    private String name;
 
 }

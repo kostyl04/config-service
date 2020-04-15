@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
@@ -20,7 +20,6 @@ public class Config {
 
     @Valid
     private ConfigKey configKey;
-
     @NotBlank
     @JsonProperty(access = WRITE_ONLY)
     private String metaName;
@@ -29,6 +28,6 @@ public class Config {
     private Meta meta;
     @Exclude
     @JsonProperty(access = READ_ONLY)
-    private List<@Valid Parameter> parameters;
+    private Set<Parameter> parameters;
 
 }

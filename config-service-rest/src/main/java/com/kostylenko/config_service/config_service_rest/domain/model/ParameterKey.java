@@ -1,9 +1,8 @@
-package com.kostylenko.config_service.config_service_rest.rest.model;
+package com.kostylenko.config_service.config_service_rest.domain.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter

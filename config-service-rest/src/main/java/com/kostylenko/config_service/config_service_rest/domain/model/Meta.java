@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.util.Set;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -18,5 +20,12 @@ public class Meta {
     private String name;
     private Set<Field> fields;
     private String keyDelimiter;
+
+    public String getKeyDelimiter() {
+        if (isEmpty(keyDelimiter)) {
+            keyDelimiter = ":";
+        }
+        return keyDelimiter;
+    }
 
 }

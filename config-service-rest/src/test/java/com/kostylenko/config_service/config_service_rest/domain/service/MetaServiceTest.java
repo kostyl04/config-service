@@ -5,7 +5,7 @@ import com.kostylenko.common.common_http.exception.NotFoundApiException;
 import com.kostylenko.config_service.config_service_rest.data.repository.MetaRepository;
 import com.kostylenko.config_service.config_service_rest.domain.model.Field;
 import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
-import com.kostylenko.config_service.config_service_rest.validator.MetaValidator;
+import com.kostylenko.config_service.config_service_rest.domain.service.validator.MetaValidator;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 

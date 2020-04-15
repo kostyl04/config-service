@@ -14,7 +14,7 @@ public class DataConfigToConfigConverter extends BaseConverter<Config, com.kosty
         to.setId(from.getId());
         to.setConfigKey(mapper.map(from.getConfigKey(), ConfigKey.class));
         to.setMeta(mapper.map(from.getMeta(), Meta.class));
-        to.setParameters(mapper.mapToList(from.getParameters(), Parameter.class));
+        to.setParameters(mapper.mapToSet(from.getParameters(), Parameter.class));
         return to;
     }
 }
