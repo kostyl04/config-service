@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.*;
 import static java.util.Objects.isNull;
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 @Slf4j
 @Service
@@ -54,11 +56,22 @@ public class ParameterService {
     }
 
     public Parameter getParameter(ParameterKey parameterKey) {
-        return null;
+        var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
+        Parameter receivedParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
+        if (isNull(receivedParameter)){
+            throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
+        }
+        return receivedParameter;
     }
 
-    public List<Parameter> getParameters() {
-        return null;
+    public Set<Parameter> getParameters(ConfigKey configKey) {
+        Config config = configService.getConfig(configKey);
+        Set<Parameter> parameters = config.getParameters();
+        if (isEmpty(parameters)){
+            log.warn("parameters not found: {}", config);
+            throw new BadRequestApiException(PARAMETERS_NOT_FOUND);
+        }
+        return parameters;
     }
 
     public Parameter updateParameter(Parameter parameter) {
@@ -85,7 +98,8 @@ public class ParameterService {
         return mapper.map(savedParameter, Parameter.class);
     }
 
-    public Parameter deleteParameter(ParameterKey parameterKey) {
-        return null;
+    public void deleteParameter(ParameterKey parameterKey) {
+        var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
+        parameterRepository.deleteByParameterKey(dataParameterKey);
     }
 }

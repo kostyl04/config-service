@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -37,17 +38,21 @@ public class ParameterController {
 
     @GetMapping(value = "/{name}")
     public Parameter getConfigParameter(ParameterKey parameterKey) {
-        return null;
+        var domainParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.domain.model.ParameterKey.class);
+        var receivedParameter = parameterService.getParameter(domainParameterKey);
+        return mapper.map(receivedParameter, Parameter.class);
     }
 
     @GetMapping
-    public List<Parameter> getConfigParameters(ConfigKey configKey) {
-        return null;
+    public Set<Parameter> getConfigParameters(ConfigKey configKey) {
+        var domainConfigKey = mapper.map(configKey, com.kostylenko.config_service.config_service_rest.domain.model.ConfigKey.class);
+        var receivedParameters = parameterService.getParameters(domainConfigKey);
+        return mapper.mapToSet(receivedParameters, Parameter.class);
     }
 
     @PutMapping(value = "/{name}")
     public Parameter updateConfigParameter(ParameterKey parameterKey,
-                            @Valid @RequestBody Parameter parameter) {
+                                           @Valid @RequestBody Parameter parameter) {
         parameter.setParameterKey(parameterKey);
         var parameterToUpdate = mapper.map(parameter, com.kostylenko.config_service.config_service_rest.domain.model.Parameter.class);
         var savedParameter = parameterService.updateParameter(parameterToUpdate);
@@ -56,7 +61,8 @@ public class ParameterController {
 
     @DeleteMapping(value = "/{name}")
     @ResponseStatus(NO_CONTENT)
-    public Parameter deleteConfigParameter(ParameterKey parameterKey) {
-        return null;
+    public void deleteConfigParameter(ParameterKey parameterKey) {
+        var domainParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.domain.model.ParameterKey.class);
+        parameterService.deleteParameter(domainParameterKey);
     }
 }

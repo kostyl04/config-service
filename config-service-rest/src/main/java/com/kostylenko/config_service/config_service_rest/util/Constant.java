@@ -26,5 +26,6 @@ public final class Constant {
 
         public static final String PARAMETER_ALREADY_EXISTS = "parameter.already.exists";
         public static final String PARAMETER_DOES_NOT_EXISTS = "parameter.does.not.exists";
+        public static final String PARAMETERS_NOT_FOUND = "parameters.not.found";
     }
 }
