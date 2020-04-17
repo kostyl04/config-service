@@ -28,7 +28,9 @@
     </properties>
 
     <modules>
+        <module>config-provider</module>
         <module>config-service-rest</module>
+        <module>config-provider-autoconfiguration</module>
     </modules>
 
     <dependencyManagement>
