@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConfigRepository extends MongoRepository<Config, String> {
 
-
     boolean existsByConfigKey(ConfigKey configKey);
 
     Config findByConfigKey(ConfigKey configKey);

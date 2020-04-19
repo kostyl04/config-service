@@ -10,4 +10,8 @@ public interface ParameterRepository extends MongoRepository<Parameter, String> 
 
     boolean existsByParameterKey(ParameterKey parameterKey);
 
+    Parameter findByParameterKey(ParameterKey parameterKey);
+
+    void deleteByParameterKey(ParameterKey parameterKey);
+
 }
