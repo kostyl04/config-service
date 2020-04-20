@@ -8,9 +8,9 @@ import com.kostylenko.config_service.config_provider.event.CreateParameterEvent;
 import com.kostylenko.config_service.config_provider.event.DeleteParameterEvent;
 import com.kostylenko.config_service.config_provider.event.ParameterEvent;
 import com.kostylenko.config_service.config_provider.event.UpdateParameterEvent;
+import com.kostylenko.config_service.config_provider.model.Config;
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
 import com.kostylenko.config_service.config_provider.model.Parameter;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
@@ -19,14 +19,33 @@ import java.util.Set;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-@SuppressWarnings("unchecked")
 @Slf4j
-@AllArgsConstructor
+@SuppressWarnings("unchecked")
 public class ContainerParameterManager implements ParameterManager {
 
     private Set<ParameterContainer> containers;
     private ObjectMapper objectMapper;
     private ConfigServiceClient client;
+
+    public ContainerParameterManager(Set<ParameterContainer> containers, ObjectMapper objectMapper, ConfigServiceClient client) {
+        this.containers = containers;
+        this.objectMapper = objectMapper;
+        this.client = client;
+        initContainers();
+    }
+
+    private void initContainers() {
+        containers.forEach(container -> {
+            ConfigKey configKey = container.getConfigKey();
+            Config config = client.getConfig(configKey.getAppName(),
+                    configKey.getConfigName(),
+                    configKey.getVersion());
+            config.getParameters().forEach(parameter -> {
+                Object mappedParameterValue = mapParameterValue(parameter, container, true);
+                container.save(parameter.getParameterName(), mappedParameterValue);
+            });
+        });
+    }
 
     @Override
     public void processCreate(CreateParameterEvent event) {
@@ -38,11 +57,8 @@ public class ContainerParameterManager implements ParameterManager {
                     configKey.getConfigName(),
                     configKey.getVersion(),
                     event.getParameterName());
-            Object mappedParameterValue;
-            try {
-                mappedParameterValue = objectMapper.readValue(parameter.getParameterValue(), container.getParameterType());
-            } catch (JsonProcessingException e) {
-                log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+            Object mappedParameterValue = mapParameterValue(parameter, container, false);
+            if (isNull(mappedParameterValue)) {
                 return;
             }
             container.save(parameter.getParameterName(), mappedParameterValue);
@@ -60,11 +76,8 @@ public class ContainerParameterManager implements ParameterManager {
                     configKey.getConfigName(),
                     configKey.getVersion(),
                     event.getParameterName());
-            Object mappedParameterValue;
-            try {
-                mappedParameterValue = objectMapper.readValue(parameter.getParameterValue(), container.getParameterType());
-            } catch (JsonProcessingException e) {
-                log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+            Object mappedParameterValue = mapParameterValue(parameter, container, false);
+            if (isNull(mappedParameterValue)) {
                 return;
             }
             container.save(parameter.getParameterName(), mappedParameterValue);
@@ -88,5 +101,20 @@ public class ContainerParameterManager implements ParameterManager {
         return containers.stream()
                 .filter(container -> container.supports(event.getConfigKey()))
                 .findFirst().orElse(null);
+    }
+
+    private Object mapParameterValue(Parameter parameter, ParameterContainer container, boolean throwException) {
+        Object mappedParameter;
+        try {
+            mappedParameter = objectMapper.readValue(parameter.getParameterValue(), container.getParameterType());
+        } catch (JsonProcessingException e) {
+            if (throwException) {
+                log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+                throw new IllegalArgumentException(e.getMessage());
+            }
+            log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+            return null;
+        }
+        return mappedParameter;
     }
 }

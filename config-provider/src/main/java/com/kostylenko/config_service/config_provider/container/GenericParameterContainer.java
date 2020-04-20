@@ -1,26 +1,32 @@
 package com.kostylenko.config_service.config_provider.container;
 
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+@Getter
 @RequiredArgsConstructor
-public class GenericParameterContainer<V> implements ParameterContainer<V> {
+public class GenericParameterContainer<V> extends ConcurrentHashMap<String, V> implements ParameterContainer<V> {
 
-    private final ConcurrentHashMap<String, V> parameters;
     private final ConfigKey configKey;
     private final Class<V> type;
     private final String beanName;
 
     @Override
+    public V get(String name) {
+        return super.get(name);
+    }
+
+    @Override
     public void save(String name, V parameter) {
-        parameters.put(name, parameter);
+        put(name, parameter);
     }
 
     @Override
     public void delete(String name) {
-        parameters.remove(name);
+        remove(name);
     }
 
     @Override
@@ -33,13 +39,4 @@ public class GenericParameterContainer<V> implements ParameterContainer<V> {
         return type;
     }
 
-    @Override
-    public String getContainerBeanName() {
-        return this.beanName;
-    }
-
-    @Override
-    public Object getContainerBean() {
-        return this.parameters;
-    }
 }

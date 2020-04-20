@@ -4,6 +4,8 @@ import com.kostylenko.config_service.config_provider.model.ConfigKey;
 
 public interface ParameterContainer<V> {
 
+    V get(String name);
+
     void save(String name, V parameter);
 
     void delete(String name);
@@ -12,7 +14,6 @@ public interface ParameterContainer<V> {
 
     Class<V> getParameterType();
 
-    String getContainerBeanName();
+    ConfigKey getConfigKey();
 
-    Object getContainerBean();
 }
