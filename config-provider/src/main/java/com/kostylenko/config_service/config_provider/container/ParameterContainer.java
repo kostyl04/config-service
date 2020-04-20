@@ -12,4 +12,7 @@ public interface ParameterContainer<V> {
 
     Class<V> getParameterType();
 
+    String getContainerBeanName();
+
+    Object getContainerBean();
 }

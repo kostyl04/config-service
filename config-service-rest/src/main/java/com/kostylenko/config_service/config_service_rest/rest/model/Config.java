@@ -8,10 +8,13 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+import static java.util.Objects.isNull;
 
 @Getter
 @Setter
@@ -29,5 +32,13 @@ public class Config {
     @Exclude
     @JsonProperty(access = READ_ONLY)
     private Set<Parameter> parameters;
+
+    public Set<Parameter> getParameters() {
+        if (isNull(parameters)) {
+            parameters = new HashSet<>();
+        }
+        parameters.removeIf(Objects::isNull);
+        return parameters;
+    }
 
 }

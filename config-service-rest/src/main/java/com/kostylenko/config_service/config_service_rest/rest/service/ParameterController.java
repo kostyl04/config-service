@@ -1,6 +1,7 @@
 package com.kostylenko.config_service.config_service_rest.rest.service;
 
 import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
+import com.kostylenko.config_service.config_service_rest.domain.service.ConfigService;
 import com.kostylenko.config_service.config_service_rest.domain.service.ParameterService;
 import com.kostylenko.config_service.config_service_rest.rest.model.ConfigKey;
 import com.kostylenko.config_service.config_service_rest.rest.model.Parameter;

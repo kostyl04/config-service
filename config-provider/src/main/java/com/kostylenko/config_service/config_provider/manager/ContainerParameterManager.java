@@ -81,7 +81,7 @@ public class ContainerParameterManager implements ParameterManager {
         }
     }
 
-    public ParameterContainer getContainer(ParameterEvent event) {
+    private ParameterContainer getContainer(ParameterEvent event) {
         if (isNull(containers)) {
             containers = new HashSet<>();
         }

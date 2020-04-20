@@ -11,6 +11,7 @@ public class GenericParameterContainer<V> implements ParameterContainer<V> {
     private final ConcurrentHashMap<String, V> parameters;
     private final ConfigKey configKey;
     private final Class<V> type;
+    private final String beanName;
 
     @Override
     public void save(String name, V parameter) {
@@ -30,5 +31,15 @@ public class GenericParameterContainer<V> implements ParameterContainer<V> {
     @Override
     public Class<V> getParameterType() {
         return type;
+    }
+
+    @Override
+    public String getContainerBeanName() {
+        return this.beanName;
+    }
+
+    @Override
+    public Object getContainerBean() {
+        return this.parameters;
     }
 }
