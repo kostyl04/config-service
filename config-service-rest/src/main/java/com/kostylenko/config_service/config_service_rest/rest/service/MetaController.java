@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -40,5 +39,4 @@ public class MetaController {
         var metas = metaService.getMetas();
         return mapper.mapToList(metas, Meta.class);
     }
-
 }

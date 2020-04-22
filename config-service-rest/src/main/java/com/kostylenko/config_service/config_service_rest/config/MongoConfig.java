@@ -2,6 +2,7 @@ package com.kostylenko.config_service.config_service_rest.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.lang.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +18,14 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Value("${mongodb.database-name}")
     private String databaseName;
 
+
+    @NonNull
     @Override
     public MongoClient mongoClient() {
         return MongoClients.create(mongodbConnectionString);
     }
 
+    @NonNull
     @Override
     protected String getDatabaseName() {
         return databaseName;
@@ -33,8 +37,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     }
 
     @Bean
-    MongoTransactionManager transactionManager(MongoDbFactory dbFactory){
+    MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
     }
-
 }

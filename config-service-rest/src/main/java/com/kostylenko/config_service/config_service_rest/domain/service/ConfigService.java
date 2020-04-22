@@ -2,11 +2,11 @@ package com.kostylenko.config_service.config_service_rest.domain.service;
 
 import com.kostylenko.common.common_http.exception.BadRequestApiException;
 import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
-import com.kostylenko.config_service.config_service_rest.domain.model.ConfigKey;
-import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
 import com.kostylenko.config_service.config_service_rest.data.repository.ConfigRepository;
 import com.kostylenko.config_service.config_service_rest.data.repository.MetaRepository;
 import com.kostylenko.config_service.config_service_rest.domain.model.Config;
+import com.kostylenko.config_service.config_service_rest.domain.model.ConfigKey;
+import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,5 +56,4 @@ public class ConfigService {
         var updatedConfig = configRepository.save(mapper.map(receivedConfig, com.kostylenko.config_service.config_service_rest.data.entity.Config.class));
         return mapper.map(updatedConfig, Config.class);
     }
-
 }

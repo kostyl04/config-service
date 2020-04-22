@@ -21,5 +21,4 @@ public class ConfigKey {
     @NotBlank
     @Pattern(regexp = "(?!\\.)(\\d+(\\.\\d+)+)")
     private String version;
-
 }

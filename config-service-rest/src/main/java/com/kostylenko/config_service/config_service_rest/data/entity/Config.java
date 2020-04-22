@@ -10,7 +10,11 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
+import static java.util.Objects.isNull;
 
 @Getter
 @Setter
@@ -29,4 +33,11 @@ public class Config {
     @DBRef
     private Set<Parameter> parameters;
 
+    public Set<Parameter> getParameters() {
+        if (isNull(parameters)) {
+            parameters = new HashSet<>();
+        }
+        parameters.removeIf(Objects::isNull);
+        return parameters;
+    }
 }

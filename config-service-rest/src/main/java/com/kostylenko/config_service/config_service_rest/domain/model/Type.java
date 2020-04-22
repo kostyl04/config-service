@@ -8,5 +8,4 @@ public enum Type {
     LONG,
     MAP,
     STRING
-
 }

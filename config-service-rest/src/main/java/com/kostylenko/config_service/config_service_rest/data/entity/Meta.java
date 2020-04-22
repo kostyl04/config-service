@@ -25,5 +25,4 @@ public class Meta {
     private String name;
     private Set<Field> fields;
     private String keyDelimiter;
-
 }

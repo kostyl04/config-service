@@ -11,5 +11,4 @@ import lombok.Setter;
 public class ParameterKey extends ConfigKey {
 
     private String name;
-
 }

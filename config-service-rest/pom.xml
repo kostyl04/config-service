@@ -12,8 +12,18 @@
 
     <artifactId>config-service-rest</artifactId>
 
+    <properties>
+        <config.provider.version>0.0.1-SNAPSHOT</config.provider.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
+    </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.kostylenko</groupId>
+            <artifactId>config-provider</artifactId>
+            <version>${config.provider.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.kostylenko</groupId>
@@ -36,10 +46,20 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>io.springfox</groupId>
@@ -70,7 +90,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
-        
+
     </dependencies>
 
 </project>

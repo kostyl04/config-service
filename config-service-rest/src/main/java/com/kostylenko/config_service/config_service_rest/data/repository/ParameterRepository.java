@@ -13,5 +13,4 @@ public interface ParameterRepository extends MongoRepository<Parameter, String> 
     Parameter findByParameterKey(ParameterKey parameterKey);
 
     void deleteByParameterKey(ParameterKey parameterKey);
-
 }

@@ -39,7 +39,7 @@ public class FieldParser {
             try {
                 result.put(field.getName(), parser.parse(objectValue));
             } catch (TypeFieldParseException e) {
-                log.warn("value {} cannot be parse to " + field.getType(), objectValue);
+                log.warn("Value {} cannot be parse to " + field.getType(), objectValue);
                 throw new BadRequestApiException(e.getMessage());
                 //TODO when we extend common with exception arguments logic, to implement it here
             }
