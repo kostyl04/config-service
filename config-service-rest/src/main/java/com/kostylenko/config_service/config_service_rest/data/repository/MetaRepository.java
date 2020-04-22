@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface MetaRepository extends MongoRepository<Meta, String> {
 
     boolean existsByName(String name);
-    Meta findByName(String name);
 
+    Meta findByName(String name);
 }

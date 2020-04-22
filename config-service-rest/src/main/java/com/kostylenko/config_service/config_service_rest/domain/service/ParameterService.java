@@ -6,15 +6,16 @@ import com.kostylenko.config_service.config_service_rest.data.repository.Paramet
 import com.kostylenko.config_service.config_service_rest.domain.model.*;
 import com.kostylenko.config_service.config_service_rest.domain.service.factory.ParameterKeyFactory;
 import com.kostylenko.config_service.config_service_rest.domain.service.parser.FieldParser;
+import com.kostylenko.config_service.config_service_rest.sender.Sender;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.kostylenko.config_service.config_provider.event.ParameterEvent.EventType.*;
 import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.*;
 import static java.util.Objects.isNull;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
@@ -25,6 +26,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 public class ParameterService {
 
     private Mapper mapper;
+    private Sender sender;
     private FieldParser fieldParser;
     private ConfigService configService;
     private ParameterRepository parameterRepository;
@@ -42,7 +44,7 @@ public class ParameterService {
         var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         boolean exists = parameterRepository.existsByParameterKey(dataParameterKey);
         if (exists) {
-            log.warn("parameter already exists {}", dataParameterKey);
+            log.warn("Parameter already exists {}", dataParameterKey);
             throw new BadRequestApiException(PARAMETER_ALREADY_EXISTS);
         }
         Meta meta = config.getMeta();
@@ -52,13 +54,14 @@ public class ParameterService {
         Parameter newParameter = mapper.map(savedParameter, Parameter.class);
         config.addParameter(newParameter);
         configService.updateConfig(config);
+        sender.sendEvent(CREATE, newParameter.getParameterKey());
         return newParameter;
     }
 
     public Parameter getParameter(ParameterKey parameterKey) {
         var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         Parameter receivedParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
-        if (isNull(receivedParameter)){
+        if (isNull(receivedParameter)) {
             throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
         }
         return receivedParameter;
@@ -67,8 +70,8 @@ public class ParameterService {
     public Set<Parameter> getParameters(ConfigKey configKey) {
         Config config = configService.getConfig(configKey);
         Set<Parameter> parameters = config.getParameters();
-        if (isEmpty(parameters)){
-            log.warn("parameters not found: {}", config);
+        if (isEmpty(parameters)) {
+            log.warn("Parameters not found: {}", config);
             throw new BadRequestApiException(PARAMETERS_NOT_FOUND);
         }
         return parameters;
@@ -78,7 +81,7 @@ public class ParameterService {
         var dataParameterKey = mapper.map(parameter.getParameterKey(), com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         Parameter oldParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
         if (isNull(oldParameter)) {
-            log.warn("parameter {} doesn't exists", parameter.getParameterKey());
+            log.warn("Parameter {} doesn't exists", parameter.getParameterKey());
             throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
         }
         Map<String, Object> oldParameterValue = oldParameter.getValue();
@@ -94,12 +97,14 @@ public class ParameterService {
         fieldParser.parse(meta, parameter.getValue());
         Parameter parameterToSave = mapper.map(parameter, oldParameter, "update");
         var dataParameter = mapper.map(parameterToSave, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class);
-        var savedParameter = parameterRepository.save(dataParameter);
-        return mapper.map(savedParameter, Parameter.class);
+        var savedParameter = mapper.map(parameterRepository.save(dataParameter), Parameter.class);
+        sender.sendEvent(UPDATE, savedParameter.getParameterKey());
+        return savedParameter;
     }
 
     public void deleteParameter(ParameterKey parameterKey) {
         var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         parameterRepository.deleteByParameterKey(dataParameterKey);
+        sender.sendEvent(DELETE, mapper.map(dataParameterKey, ParameterKey.class));
     }
 }

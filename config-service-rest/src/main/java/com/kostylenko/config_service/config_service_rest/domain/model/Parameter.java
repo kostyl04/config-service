@@ -16,5 +16,4 @@ public class Parameter {
     private ParameterKey parameterKey;
     @Exclude
     private Map<String, Object> value;
-
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kostylenko.config_service.config_service_rest.domain.model.Type.LIST;
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.INVALID_PARSING_VALUE;
 
 @Slf4j
 @Component

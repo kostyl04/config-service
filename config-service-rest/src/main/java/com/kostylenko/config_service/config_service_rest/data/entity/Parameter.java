@@ -21,5 +21,4 @@ public class Parameter {
     private String id;
     private ParameterKey parameterKey;
     private Map<String, Object> value;
-
 }

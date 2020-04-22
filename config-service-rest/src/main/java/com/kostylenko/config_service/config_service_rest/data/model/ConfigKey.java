@@ -14,5 +14,4 @@ public class ConfigKey {
     private String appName;
     private String configName;
     private String version;
-
 }

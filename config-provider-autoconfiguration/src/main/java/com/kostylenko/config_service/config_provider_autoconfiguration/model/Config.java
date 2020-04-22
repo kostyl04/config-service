@@ -20,12 +20,11 @@ public class Config {
     @Exclude
     private Class clazz;
 
-    public ConfigKey getConfigKey(){
+    public ConfigKey getConfigKey() {
         ConfigKey configKey = new ConfigKey();
         configKey.setAppName(appName);
         configKey.setConfigName(name);
         configKey.setVersion(version);
         return configKey;
     }
-
 }

@@ -3,11 +3,9 @@ package com.kostylenko.config_service.config_provider.container;
 import com.kostylenko.config_service.config_provider.common_config.Message;
 import com.kostylenko.config_service.config_provider.common_config.Messages;
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
-import lombok.Getter;
 
 import static java.util.Objects.isNull;
 
-@Getter
 public class MessageParameterContainer extends GenericParameterContainer<Message> implements Messages {
 
     public MessageParameterContainer(ConfigKey configKey, String beanName) {

@@ -16,5 +16,4 @@ public class MapperConfig {
     public Mapper mapper(Set<BaseConverter> converters) {
         return new DefaultMapper(new ArrayList<>(converters));
     }
-
 }

@@ -4,17 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kostylenko.config_service.config_provider.client.ConfigServiceClient;
 import com.kostylenko.config_service.config_provider.container.ParameterContainer;
-import com.kostylenko.config_service.config_provider.event.CreateParameterEvent;
-import com.kostylenko.config_service.config_provider.event.DeleteParameterEvent;
 import com.kostylenko.config_service.config_provider.event.ParameterEvent;
-import com.kostylenko.config_service.config_provider.event.UpdateParameterEvent;
+import com.kostylenko.config_service.config_provider.event.ParameterEvent.EventType;
 import com.kostylenko.config_service.config_provider.model.Config;
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
 import com.kostylenko.config_service.config_provider.model.Parameter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -26,11 +27,16 @@ public class ContainerParameterManager implements ParameterManager {
     private Set<ParameterContainer> containers;
     private ObjectMapper objectMapper;
     private ConfigServiceClient client;
+    private final Map<EventType, Consumer<ParameterEvent>> eventProcessors;
 
     public ContainerParameterManager(Set<ParameterContainer> containers, ObjectMapper objectMapper, ConfigServiceClient client) {
         this.containers = containers;
         this.objectMapper = objectMapper;
         this.client = client;
+        eventProcessors = new HashMap<>();
+        eventProcessors.put(EventType.UPDATE, this::processUpdate);
+        eventProcessors.put(EventType.CREATE, this::processCreate);
+        eventProcessors.put(EventType.DELETE, this::processDelete);
         initContainers();
     }
 
@@ -48,7 +54,11 @@ public class ContainerParameterManager implements ParameterManager {
     }
 
     @Override
-    public void processCreate(CreateParameterEvent event) {
+    public void process(ParameterEvent event) {
+        eventProcessors.get(event.getEventType()).accept(event);
+    }
+
+    private void processCreate(ParameterEvent event) {
         ParameterContainer container = getContainer(event);
         if (nonNull(container)) {
             ConfigKey configKey = event.getConfigKey();
@@ -62,12 +72,11 @@ public class ContainerParameterManager implements ParameterManager {
                 return;
             }
             container.save(parameter.getParameterName(), mappedParameterValue);
-            log.info("configKey: {}, parameter: {} created", configKey, parameter.getParameterName());
+            log.info("ConfigKey: {}, parameter: {} created", configKey, parameter.getParameterName());
         }
     }
 
-    @Override
-    public void processUpdate(UpdateParameterEvent event) {
+    private void processUpdate(ParameterEvent event) {
         ParameterContainer container = getContainer(event);
         if (nonNull(container)) {
             ConfigKey configKey = event.getConfigKey();
@@ -85,12 +94,11 @@ public class ContainerParameterManager implements ParameterManager {
         }
     }
 
-    @Override
-    public void processDelete(DeleteParameterEvent event) {
+    private void processDelete(ParameterEvent event) {
         ParameterContainer container = getContainer(event);
         if (nonNull(container)) {
             container.delete(event.getParameterName());
-            log.info("configKey: {}, parameter: {} deleted", event.getConfigKey(), event.getParameterName());
+            log.info("ConfigKey: {}, parameter: {} deleted", event.getConfigKey(), event.getParameterName());
         }
     }
 
@@ -109,10 +117,10 @@ public class ContainerParameterManager implements ParameterManager {
             mappedParameter = objectMapper.readValue(parameter.getParameterValue(), container.getParameterType());
         } catch (JsonProcessingException e) {
             if (throwException) {
-                log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+                log.error("Cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
                 throw new IllegalArgumentException(e.getMessage());
             }
-            log.error("cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
+            log.error("Cannot parse parameter: {} to {}, cause: ", parameter.getParameterName(), container.getParameterType(), e);
             return null;
         }
         return mappedParameter;

@@ -14,7 +14,6 @@ import static com.kostylenko.config_service.config_service_rest.util.Constant.Ex
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
-
 @Slf4j
 @Component
 public class ParameterKeyFactory {
@@ -33,7 +32,7 @@ public class ParameterKeyFactory {
         keyFields.forEach(keyField -> {
             Object keyFieldValue = value.get(keyField.getName());
             if (isNull(keyFieldValue)) {
-                log.warn("key value {} cannot be null", keyField.getName());
+                log.warn("Key value {} cannot be null", keyField.getName());
                 throw new BadRequestApiException(KEY_VALUE_CANNOT_BE_NULL);
             }
             keyValues.add(keyFieldValue.toString());
@@ -41,5 +40,4 @@ public class ParameterKeyFactory {
         parameterKey.setName(keyValues.stream().collect(Collectors.joining(meta.getKeyDelimiter())));
         return parameterKey;
     }
-
 }

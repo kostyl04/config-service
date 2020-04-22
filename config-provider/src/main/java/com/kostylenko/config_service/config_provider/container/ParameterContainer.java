@@ -15,5 +15,4 @@ public interface ParameterContainer<V> {
     Class<V> getParameterType();
 
     ConfigKey getConfigKey();
-
 }

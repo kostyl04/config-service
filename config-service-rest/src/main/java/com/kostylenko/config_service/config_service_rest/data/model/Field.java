@@ -15,5 +15,4 @@ public class Field {
     private boolean nullable = true;
     private boolean key;
     private Type type;
-
 }

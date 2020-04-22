@@ -38,5 +38,4 @@ public class GenericParameterContainer<V> extends ConcurrentHashMap<String, V> i
     public Class<V> getParameterType() {
         return type;
     }
-
 }

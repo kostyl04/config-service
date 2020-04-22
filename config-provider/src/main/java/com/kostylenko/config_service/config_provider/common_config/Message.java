@@ -10,5 +10,4 @@ public class Message {
     private String name;
     private String lang;
     private String text;
-
 }

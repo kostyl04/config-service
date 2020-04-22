@@ -22,7 +22,6 @@ public final class Constant {
 
         public static final String KEY_VALUE_CANNOT_BE_NULL = "key.value.cannot.be.null";
         public static final String VALUE_CAN_NOT_BE_NULL = "value.cannot.be.null";
-        public static final String INVALID_PARSING_VALUE = "invalid.parsing.value";
 
         public static final String PARAMETER_ALREADY_EXISTS = "parameter.already.exists";
         public static final String PARAMETER_DOES_NOT_EXISTS = "parameter.does.not.exists";

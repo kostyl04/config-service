@@ -16,12 +16,11 @@ public class Parameter {
 
     private JsonNode value;
 
-    public String getParameterName(){
+    public String getParameterName() {
         return parameterKey.findPath("name").asText();
     }
 
-    public String getParameterValue(){
+    public String getParameterValue() {
         return value.toString();
     }
-
 }

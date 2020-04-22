@@ -2,12 +2,12 @@ package com.kostylenko.config_service.config_service_rest.domain.service;
 
 import com.kostylenko.common.common_http.exception.BadRequestApiException;
 import com.kostylenko.common.common_http.exception.NotFoundApiException;
+import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
 import com.kostylenko.config_service.config_service_rest.data.repository.MetaRepository;
 import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
 import com.kostylenko.config_service.config_service_rest.domain.service.validator.MetaValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +55,4 @@ public class MetaService {
         }
         return metas;
     }
-
 }

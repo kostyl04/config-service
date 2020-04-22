@@ -15,5 +15,4 @@ public class Config {
     @Include
     private ConfigKey configKey;
     private Set<Parameter> parameters;
-
 }

@@ -40,5 +40,4 @@ public class Config {
         parameters.removeIf(Objects::isNull);
         return parameters;
     }
-
 }

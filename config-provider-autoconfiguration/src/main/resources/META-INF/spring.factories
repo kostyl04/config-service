@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.kostylenko.config_service.config_provider_autoconfiguration.ConfigProviderAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.kostylenko.config_service.config_provider_autoconfiguration.config.ConfigProviderAutoConfiguration

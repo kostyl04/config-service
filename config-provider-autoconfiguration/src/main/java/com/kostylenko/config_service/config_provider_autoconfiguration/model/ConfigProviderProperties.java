@@ -1,6 +1,5 @@
-package com.kostylenko.config_service.config_provider_autoconfiguration;
+package com.kostylenko.config_service.config_provider_autoconfiguration.model;
 
-import com.kostylenko.config_service.config_provider_autoconfiguration.model.Config;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,12 +14,12 @@ import java.util.List;
 public class ConfigProviderProperties {
 
     private String url;
+    private String brokerUrl;
     private String appName;
     private List<Config> configs;
 
-    public List<Config> getConfigs(){
+    public List<Config> getConfigs() {
         configs.forEach(config -> config.setAppName(appName));
         return configs;
     }
-
 }

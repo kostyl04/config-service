@@ -6,8 +6,8 @@ import com.kostylenko.config_service.config_service_rest.domain.model.Meta;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.*;
 import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.EMPTY_META_FIELDS;
+import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.KEY_FIELD_NOT_FOUND;
 import static java.util.Objects.isNull;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
