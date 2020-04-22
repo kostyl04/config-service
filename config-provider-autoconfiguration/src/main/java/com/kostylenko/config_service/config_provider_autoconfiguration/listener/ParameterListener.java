@@ -33,6 +33,8 @@ public class ParameterListener implements MessageListener {
                 log.error("Error processing event: ", e);
                 throw new RuntimeException(e);
             }
+        } else {
+            log.error("Unknown message implementation: {}", message);
         }
     }
 }

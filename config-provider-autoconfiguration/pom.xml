@@ -15,7 +15,7 @@
 
     <properties>
         <config.provider.version>0.0.1-SNAPSHOT</config.provider.version>
-        <spring.boot.configuration.processor>2.2.6.RELEASE</spring.boot.configuration.processor>
+        <spring.boot.configuration.processor.version>2.2.6.RELEASE</spring.boot.configuration.processor.version>
     </properties>
 
     <dependencies>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring.boot.configuration.processor}</version>
+            <version>${spring.boot.configuration.processor.version}</version>
         </dependency>
 
         <dependency>

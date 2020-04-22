@@ -61,36 +61,18 @@ public class ContainerParameterManager implements ParameterManager {
     private void processCreate(ParameterEvent event) {
         ParameterContainer container = getContainer(event);
         if (nonNull(container)) {
-            ConfigKey configKey = event.getConfigKey();
-            Parameter parameter = client.getParameter(
-                    configKey.getAppName(),
-                    configKey.getConfigName(),
-                    configKey.getVersion(),
-                    event.getParameterName());
-            Object mappedParameterValue = mapParameterValue(parameter, container, false);
-            if (isNull(mappedParameterValue)) {
-                return;
+            if (save(event, container)) {
+                log.info("ConfigKey: {}, parameter: {} created", event.getConfigKey(), event.getParameterName());
             }
-            container.save(parameter.getParameterName(), mappedParameterValue);
-            log.info("ConfigKey: {}, parameter: {} created", configKey, parameter.getParameterName());
         }
     }
 
     private void processUpdate(ParameterEvent event) {
         ParameterContainer container = getContainer(event);
         if (nonNull(container)) {
-            ConfigKey configKey = event.getConfigKey();
-            Parameter parameter = client.getParameter(
-                    configKey.getAppName(),
-                    configKey.getConfigName(),
-                    configKey.getVersion(),
-                    event.getParameterName());
-            Object mappedParameterValue = mapParameterValue(parameter, container, false);
-            if (isNull(mappedParameterValue)) {
-                return;
+            if (save(event, container)) {
+                log.info("ConfigKey: {}, parameter: {} updated", event.getConfigKey(), event.getParameterName());
             }
-            container.save(parameter.getParameterName(), mappedParameterValue);
-            log.info("configKey: {}, parameter: {} updated", configKey, parameter.getParameterName());
         }
     }
 
@@ -100,6 +82,21 @@ public class ContainerParameterManager implements ParameterManager {
             container.delete(event.getParameterName());
             log.info("ConfigKey: {}, parameter: {} deleted", event.getConfigKey(), event.getParameterName());
         }
+    }
+
+    private boolean save(ParameterEvent event, ParameterContainer container) {
+        ConfigKey configKey = event.getConfigKey();
+        Parameter parameter = client.getParameter(
+                configKey.getAppName(),
+                configKey.getConfigName(),
+                configKey.getVersion(),
+                event.getParameterName());
+        Object mappedParameterValue = mapParameterValue(parameter, container, false);
+        if (isNull(mappedParameterValue)) {
+            return false;
+        }
+        container.save(parameter.getParameterName(), mappedParameterValue);
+        return true;
     }
 
     private ParameterContainer getContainer(ParameterEvent event) {

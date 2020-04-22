@@ -2,6 +2,7 @@ package com.kostylenko.config_service.config_service_rest.sender;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
 import com.kostylenko.config_service.config_provider.event.ParameterEvent;
 import com.kostylenko.config_service.config_provider.event.ParameterEvent.EventType;
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
@@ -18,12 +19,10 @@ public class Sender {
 
     private ObjectMapper objectMapper;
     private JmsTemplate jmsTemplate;
+    private Mapper mapper;
 
     public void sendEvent(EventType eventType, ParameterKey parameterKey) {
-        ConfigKey configKey = new ConfigKey();
-        configKey.setAppName(parameterKey.getAppName());
-        configKey.setConfigName(parameterKey.getConfigName());
-        configKey.setVersion(parameterKey.getVersion());
+        ConfigKey configKey = mapper.map(parameterKey, ConfigKey.class);
         ParameterEvent parameterEvent = new ParameterEvent(eventType);
         parameterEvent.setConfigKey(configKey);
         parameterEvent.setParameterName(parameterKey.getName());

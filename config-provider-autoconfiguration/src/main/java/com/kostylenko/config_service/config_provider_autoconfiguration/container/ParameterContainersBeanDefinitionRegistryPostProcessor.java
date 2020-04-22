@@ -17,7 +17,7 @@ import org.springframework.lang.NonNull;
 public class ParameterContainersBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
 
     private ConfigProviderProperties configuration;
-    private static final String CONFIG_PROVIDER_PROPERTIES = "config-provider";
+    private static final String CONFIG_PROVIDER_PROPERTIES_PREFIX = "config-provider";
 
 
     @Override
@@ -40,7 +40,7 @@ public class ParameterContainersBeanDefinitionRegistryPostProcessor implements B
 
     private void bindProperties(Environment environment) {
         this.configuration = Binder.get(environment)
-                .bind(CONFIG_PROVIDER_PROPERTIES, ConfigProviderProperties.class)
+                .bind(CONFIG_PROVIDER_PROPERTIES_PREFIX, ConfigProviderProperties.class)
                 .orElseThrow(IllegalStateException::new);
     }
 }
