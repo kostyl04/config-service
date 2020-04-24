@@ -49,7 +49,7 @@ public class PropertyParameterContainer extends GenericParameterContainer<Proper
         Property property = findProperty(name);
         accepts(property, List.class);
         String stringList = property.getValue();
-        String[] values = stringList.substring(1, stringList.length() - 1).replace(" ", "").split(",`K");
+        String[] values = stringList.substring(1, stringList.length() - 1).replace(" ", "").split(",");
         return new ArrayList<>(Arrays.asList(values));
     }
 
