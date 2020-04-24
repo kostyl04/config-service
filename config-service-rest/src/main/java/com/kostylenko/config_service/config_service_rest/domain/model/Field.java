@@ -13,6 +13,7 @@ public class Field {
     @Include
     private String name;
     private boolean nullable = true;
+    private boolean immutable;
     private boolean key;
     private Type type;
 }

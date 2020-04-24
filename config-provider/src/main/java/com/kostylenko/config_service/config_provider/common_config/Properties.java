@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface Properties {
 
-    Integer getInteger(String name);
+    Float getFloat(String name);
 
     Boolean getBoolean(String name);
 

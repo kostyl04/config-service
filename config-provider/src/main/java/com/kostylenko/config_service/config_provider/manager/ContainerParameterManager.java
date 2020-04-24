@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import static com.kostylenko.config_service.config_provider.event.ParameterEvent.EventType.*;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -34,9 +35,9 @@ public class ContainerParameterManager implements ParameterManager {
         this.objectMapper = objectMapper;
         this.client = client;
         eventProcessors = new HashMap<>();
-        eventProcessors.put(EventType.UPDATE, this::processUpdate);
-        eventProcessors.put(EventType.CREATE, this::processCreate);
-        eventProcessors.put(EventType.DELETE, this::processDelete);
+        eventProcessors.put(UPDATE, this::processUpdate);
+        eventProcessors.put(CREATE, this::processCreate);
+        eventProcessors.put(DELETE, this::processDelete);
         initContainers();
     }
 

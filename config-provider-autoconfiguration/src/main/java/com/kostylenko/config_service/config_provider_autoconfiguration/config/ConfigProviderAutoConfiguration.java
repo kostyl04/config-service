@@ -80,5 +80,3 @@ public class ConfigProviderAutoConfiguration {
         return endpoint;
     }
 }
-
-
