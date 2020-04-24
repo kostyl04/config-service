@@ -49,7 +49,7 @@ public class PropertyParameterContainer extends GenericParameterContainer<Proper
         Property property = findProperty(name);
         accepts(property, List.class);
         String stringList = property.getValue();
-        String[] values = stringList.substring(1, stringList.length() - 1).replace(" ", "").split(";");
+        String[] values = stringList.substring(1, stringList.length() - 1).replace(" ", "").split(",`K");
         return new ArrayList<>(Arrays.asList(values));
     }
 
@@ -59,7 +59,7 @@ public class PropertyParameterContainer extends GenericParameterContainer<Proper
         accepts(property, Map.class);
         Map<String, String> result = new HashMap<>();
         String stringMap = property.getValue();
-        String[] entries = stringMap.substring(1, stringMap.length() - 1).replace(" ", "").split(";");
+        String[] entries = stringMap.substring(1, stringMap.length() - 1).replace(" ", "").split(",");
         for (String entry : entries) {
             String[] key_value = entry.split("=");
             result.put(key_value[0], key_value[1]);
