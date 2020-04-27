@@ -6,6 +6,7 @@ import com.kostylenko.config_service.config_service_rest.data.repository.Paramet
 import com.kostylenko.config_service.config_service_rest.domain.model.*;
 import com.kostylenko.config_service.config_service_rest.domain.service.factory.ParameterKeyFactory;
 import com.kostylenko.config_service.config_service_rest.domain.service.parser.FieldParser;
+import com.kostylenko.config_service.config_service_rest.domain.service.validator.MetaValidatorManager;
 import com.kostylenko.config_service.config_service_rest.sender.Sender;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class ParameterService {
     private ConfigService configService;
     private ParameterRepository parameterRepository;
     private ParameterKeyFactory parameterKeyFactory;
+    private MetaValidatorManager metaValidatorManager;
 
     @Transactional
     public Parameter createParameter(ConfigKey configKey, Parameter parameter) {
@@ -50,6 +52,7 @@ public class ParameterService {
         Meta meta = config.getMeta();
         Map<String, Object> parse = fieldParser.parse(meta, parameter.getValue());
         parameter.setValue(parse);
+        metaValidatorManager.validate(parameter, meta);
         var savedParameter = parameterRepository.save(mapper.map(parameter, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class));
         Parameter newParameter = mapper.map(savedParameter, Parameter.class);
         config.addParameter(newParameter);
@@ -89,12 +92,14 @@ public class ParameterService {
         Config config = configService.getConfig(configKey);
         Meta meta = config.getMeta();
         meta.getFields().forEach(field -> {
-            if (field.isKey()) {
+            if (field.isKey() || field.isImmutable()) {
                 String fieldName = field.getName();
                 parameter.getValue().put(fieldName, oldParameterValue.get(fieldName));
             }
         });
-        fieldParser.parse(meta, parameter.getValue());
+        Map<String, Object> parse = fieldParser.parse(meta, parameter.getValue());
+        parameter.setValue(parse);
+        metaValidatorManager.validate(parameter, meta);
         Parameter parameterToSave = mapper.map(parameter, oldParameter, "update");
         var dataParameter = mapper.map(parameterToSave, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class);
         var savedParameter = mapper.map(parameterRepository.save(dataParameter), Parameter.class);

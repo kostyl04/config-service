@@ -22,6 +22,7 @@ public class Field {
     private String name;
     private boolean nullable = true;
     private boolean key;
+    private boolean immutable;
     @NotEmpty
     @Pattern(regexp = "long|string|list|map|float|boolean", flags = CASE_INSENSITIVE)
     private String type;

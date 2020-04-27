@@ -14,8 +14,10 @@ public class FieldToDataFieldConverter extends BaseConverter<Field, com.kostylen
         to.setKey(from.isKey());
         if (to.isKey()) {
             to.setNullable(false);
+            to.setImmutable(true);
         } else {
             to.setNullable(from.isNullable());
+            to.setImmutable(from.isImmutable());
         }
         to.setType(mapper.map(from.getType(), Type.class));
         return to;

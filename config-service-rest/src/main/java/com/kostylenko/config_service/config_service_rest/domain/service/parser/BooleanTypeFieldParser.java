@@ -19,8 +19,8 @@ public class BooleanTypeFieldParser extends AbstractTypeFieldParser<Boolean> {
         if (value instanceof Boolean) {
             return (Boolean) value;
         }
-        if (!value.toString().equalsIgnoreCase("true") &&
-                !value.toString().equalsIgnoreCase("false")) {
+        boolean matches = value.toString().matches("(true)|(false)");
+        if (!matches) {
             throw getTypeFieldParseException(value);
         }
         return Boolean.valueOf(value.toString());

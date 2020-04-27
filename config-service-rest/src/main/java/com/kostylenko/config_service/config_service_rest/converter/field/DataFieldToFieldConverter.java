@@ -13,6 +13,7 @@ public class DataFieldToFieldConverter extends BaseConverter<Field, com.kostylen
         to.setName(from.getName());
         to.setKey(from.isKey());
         to.setNullable(from.isNullable());
+        to.setImmutable(from.isImmutable());
         to.setType(mapper.map(from.getType(), Type.class));
         return to;
     }

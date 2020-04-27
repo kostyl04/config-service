@@ -1,6 +1,8 @@
 package com.kostylenko.config_service.config_provider.container;
 
 import com.kostylenko.config_service.config_provider.model.ConfigKey;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,8 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
 @RequiredArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class GenericParameterContainer<V> extends ConcurrentHashMap<String, V> implements ParameterContainer<V> {
 
+    @Include
     private final ConfigKey configKey;
     private final Class<V> type;
     private final String beanName;
