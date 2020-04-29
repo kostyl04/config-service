@@ -13,7 +13,6 @@
     <artifactId>config-service-rest</artifactId>
 
     <properties>
-        <config.provider.version>0.0.1-SNAPSHOT</config.provider.version>
         <spring.version>5.2.3.RELEASE</spring.version>
     </properties>
 
@@ -22,12 +21,17 @@
         <dependency>
             <groupId>com.kostylenko</groupId>
             <artifactId>config-provider</artifactId>
-            <version>${config.provider.version}</version>
+            <version>${version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.kostylenko</groupId>
             <artifactId>common-http-autoconfiguration</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kostylenko</groupId>
+            <artifactId>config-service-web</artifactId>
         </dependency>
 
         <dependency>

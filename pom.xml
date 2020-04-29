@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kostylenko</groupId>
     <artifactId>config-service</artifactId>
@@ -12,6 +11,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.encodeing>UTF-8</maven.compiler.encodeing>
         <java.version>11</java.version>
         <common.http.autoconfiguration.version>0.0.4-SNAPSHOT</common.http.autoconfiguration.version>
         <common.mapper.version>0.0.4-SNAPSHOT</common.mapper.version>
@@ -29,10 +29,11 @@
     </properties>
 
     <modules>
-        <module>config-service-rest</module>
         <module>config-provider</module>
         <module>config-provider-autoconfiguration</module>
-    </modules>
+        <module>config-service-web</module>
+        <module>config-service-rest</module>
+  </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -41,6 +42,12 @@
                 <groupId>com.kostylenko</groupId>
                 <artifactId>common-http-autoconfiguration</artifactId>
                 <version>${common.http.autoconfiguration.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kostylenko</groupId>
+                <artifactId>config-service-web</artifactId>
+                <version>${version}</version>
             </dependency>
 
             <dependency>
