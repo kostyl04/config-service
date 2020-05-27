@@ -18,3 +18,12 @@ logging:
           mongodb:
             core:
               MongoTemplate: DEBUG
+
+config-provider:
+  app-name: config-service
+  configs:
+    - name: errors
+      version: 1.0
+      clazz: com.kostylenko.config_service.config_provider.common_config.Message
+      beanName: errors
+  broker-url: tcp://localhost:61616
