@@ -17,11 +17,12 @@ public class Field {
 
     @Include
     @NotBlank(message = "field.name")
-    @Pattern(regexp = "[a-zA-Z]+", message = "field.name")
+    @Pattern(regexp = "([a-zA-Z])+\\w*", message = "field.name")
     private String name;
     private boolean nullable = true;
     private boolean key;
     private boolean immutable;
+    private Integer index;
     @NotBlank(message = "field.type")
     @Pattern(regexp = "long|string|list|map|float|boolean", message = "field.type", flags = CASE_INSENSITIVE)
     private String type;

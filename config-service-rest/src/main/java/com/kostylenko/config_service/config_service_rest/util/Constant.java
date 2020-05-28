@@ -14,6 +14,8 @@ public final class Constant {
         public static final String KEY_FIELD_NOT_FOUND = "key.field.not.found";
         public static final String META_NOT_FOUND = "meta.not.found";
         public static final String META_ALREADY_EXISTS = "meta.already.exists";
+        public static final String KEY_FIELD_INDEX_IS_NULL = "key.field.index.is.null";
+        public static final String KEY_FIELDS_INDEXES_ARE_NOT_UNIQUE = "key.fields.indexes.are.not.unique";
 
         public static final String CONFIG_ALREADY_EXISTS = "config.already.exists";
         public static final String CONFIG_NOT_FOUND = "config.not.found";

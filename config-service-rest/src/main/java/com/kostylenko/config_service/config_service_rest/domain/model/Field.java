@@ -15,5 +15,6 @@ public class Field {
     private boolean nullable = true;
     private boolean immutable;
     private boolean key;
+    private Integer index;
     private Type type;
 }
