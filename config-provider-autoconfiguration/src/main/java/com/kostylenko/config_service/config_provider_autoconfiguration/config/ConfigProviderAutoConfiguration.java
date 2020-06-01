@@ -55,9 +55,9 @@ public class ConfigProviderAutoConfiguration {
     @Bean
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @ConditionalOnMissingBean(ParameterManager.class)
-    public ParameterManager parameterManager(Set<ParameterContainer> containers) {
+    public ParameterManager parameterManager(Set<ParameterContainer> containers, ConfigServiceClient configServiceClient) {
         return new ContainerParameterManager(containers,
-                objectMapper(), configServiceClient());
+                objectMapper(), configServiceClient);
     }
 
     @Bean

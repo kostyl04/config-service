@@ -9,8 +9,10 @@ import com.kostylenko.config_service.config_service_rest.domain.model.ParameterK
 import com.kostylenko.config_service.config_service_rest.domain.service.ConfigService;
 import com.kostylenko.config_service.config_service_rest.domain.service.ParameterService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
+@Service
 public class InternalConfigServiceClient implements ConfigServiceClient {
 
     private ConfigService configService;

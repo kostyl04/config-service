@@ -37,7 +37,7 @@ public class ParameterService {
     private TransactionTemplate transactionTemplate;
 
     public Parameter createParameter(ConfigKey configKey, Parameter parameter) {
-        Parameter execute = transactionTemplate.execute(transactionStatus -> {
+        Parameter createdParameter = transactionTemplate.execute(transactionStatus -> {
             try {
                 Config config = configService.getConfig(configKey);
                 if (isNull(config)) {
@@ -67,10 +67,10 @@ public class ParameterService {
                 throw ex;
             }
         });
-        if (nonNull(execute)) {
-            sender.sendEvent(CREATE, execute.getParameterKey());
+        if (nonNull(createdParameter)) {
+            sender.sendEvent(CREATE, createdParameter.getParameterKey());
         }
-        return execute;
+        return createdParameter;
     }
 
     public Parameter getParameter(ParameterKey parameterKey) {
@@ -93,7 +93,7 @@ public class ParameterService {
     }
 
     public Parameter updateParameter(Parameter parameter) {
-        Parameter execute = transactionTemplate.execute(transactionStatus -> {
+        Parameter updatedParameter = transactionTemplate.execute(transactionStatus -> {
             try {
                 var dataParameterKey = mapper.map(parameter.getParameterKey(), com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
                 Parameter oldParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
@@ -123,10 +123,10 @@ public class ParameterService {
                 throw ex;
             }
         });
-        if (nonNull(execute)) {
-            sender.sendEvent(UPDATE, execute.getParameterKey());
+        if (nonNull(updatedParameter)) {
+            sender.sendEvent(UPDATE, updatedParameter.getParameterKey());
         }
-        return execute;
+        return updatedParameter;
     }
 
     public void deleteParameter(ParameterKey parameterKey) {
