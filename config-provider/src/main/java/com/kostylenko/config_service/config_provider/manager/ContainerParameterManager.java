@@ -30,7 +30,9 @@ public class ContainerParameterManager implements ParameterManager {
     private ConfigServiceClient client;
     private final Map<EventType, Consumer<ParameterEvent>> eventProcessors;
 
-    public ContainerParameterManager(Set<ParameterContainer> containers, ObjectMapper objectMapper, ConfigServiceClient client) {
+    public ContainerParameterManager(Set<ParameterContainer> containers,
+                                     ObjectMapper objectMapper,
+                                     ConfigServiceClient client) {
         this.containers = containers;
         this.objectMapper = objectMapper;
         this.client = client;

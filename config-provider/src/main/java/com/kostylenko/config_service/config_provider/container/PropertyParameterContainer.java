@@ -61,8 +61,8 @@ public class PropertyParameterContainer extends GenericParameterContainer<Proper
         String stringMap = property.getValue();
         String[] entries = stringMap.substring(1, stringMap.length() - 1).replace(" ", "").split(",");
         for (String entry : entries) {
-            String[] key_value = entry.split("=");
-            result.put(key_value[0], key_value[1]);
+            String[] keyValue = entry.split("=");
+            result.put(keyValue[0], keyValue[1]);
         }
         return result;
     }

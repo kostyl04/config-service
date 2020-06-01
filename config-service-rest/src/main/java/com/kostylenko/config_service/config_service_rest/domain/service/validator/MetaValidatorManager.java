@@ -13,7 +13,7 @@ public class MetaValidatorManager {
 
     private Set<CommonParameterValidator> validators;
 
-    public void validate(Parameter parameter, Meta meta){
+    public void validate(Parameter parameter, Meta meta) {
         validators.stream()
                 .filter(validator -> validator.supports(meta))
                 .findFirst().ifPresent(validator -> validator.validate(parameter));

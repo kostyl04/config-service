@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.kostylenko.config_service.config_service_rest.util.Constant.ExceptionMessages.VALUE_IS_NOT_VALID;
-import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
 
 @Component
 public class PropertyParameterValidator implements CommonParameterValidator<Property> {
@@ -32,9 +32,11 @@ public class PropertyParameterValidator implements CommonParameterValidator<Prop
         String type = (String) parameter.getValue().get("type");
         String value = (String) parameter.getValue().get("value");
         Consumer<String> stringConsumer = typeValidators.get(type);
-        if (nonNull(stringConsumer)) {
-            stringConsumer.accept(value);
-        } else throw new BadRequestApiException("unknown.type");
+        if (isNull(stringConsumer)) {
+            throw new BadRequestApiException("unknown.type");
+        }
+        stringConsumer.accept(value);
+
     }
 
     @Override

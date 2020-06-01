@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-    @GetMapping(value = {"/web","/web/meta"})
+    @GetMapping(value = {"/web", "/web/meta"})
     public String test() {
         return "/index";
     }

@@ -14,7 +14,7 @@ public class CommonHttpConfig {
     private Messages errors;
 
     @Bean
-    public TemplateSource templateSource(){
+    public TemplateSource templateSource() {
         return (lang, code) -> errors.getMessage(code, lang);
     }
 }
