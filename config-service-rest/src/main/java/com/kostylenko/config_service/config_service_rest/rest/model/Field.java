@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
@@ -17,13 +16,14 @@ import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 public class Field {
 
     @Include
-    @NotBlank
-    @Pattern(regexp = "[a-zA-Z]+")
+    @NotBlank(message = "field.name")
+    @Pattern(regexp = "([a-zA-Z])+\\w*", message = "field.name")
     private String name;
     private boolean nullable = true;
     private boolean key;
     private boolean immutable;
-    @NotEmpty
-    @Pattern(regexp = "long|string|list|map|float|boolean", flags = CASE_INSENSITIVE)
+    private Integer index;
+    @NotBlank(message = "field.type")
+    @Pattern(regexp = "long|string|list|map|float|boolean", message = "field.type", flags = CASE_INSENSITIVE)
     private String type;
 }

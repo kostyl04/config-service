@@ -13,6 +13,7 @@ public class FieldToApiFieldConverter extends BaseConverter<Field, com.kostylenk
         to.setKey(from.isKey());
         to.setNullable(from.isNullable());
         to.setImmutable(from.isImmutable());
+        to.setIndex(from.getIndex());
         to.setType(from.getType().name());
         return to;
     }

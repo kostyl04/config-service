@@ -1,8 +1,11 @@
 import Header from "./components/header/header";
-import {configServiceClient} from "./client/client"
+import {Route, Switch} from "react-router";
+import Meta from "./components/meta/meta";
+import {Router as Router} from "react-router-dom";
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+const history = require("history").createBrowserHistory();
 
 class App extends React.Component {
 
@@ -10,10 +13,6 @@ class App extends React.Component {
         super(props);
         this.onApplicationChange = this.onApplicationChange.bind(this);
         this.state = {applications: []};
-        let that = this;
-        configServiceClient.getApplicationNames().then((apps) => {
-            that.setState({applications: apps});
-        });
     }
 
     componentDidMount() {
@@ -25,9 +24,22 @@ class App extends React.Component {
     }
 
     render() {
-        console.log("watching1")
         return (
-            <Header applications={this.state.applications} onApplicationChange={this.onApplicationChange}/>
+            <Router history={history}>
+                <Header/>
+                <main className="bd-masthead" id="content" role="main">
+                    <div className="container">
+                        <Switch>
+                            {/*<Route path="/web/meta">
+                                <Meta location={this.props.location}/>
+                            </Route>*/}
+                            <Route path="/web/meta" render={props =>
+                                <Meta key={props.location.search} {...props}/>
+                            }/>
+                        </Switch>
+                    </div>
+                </main>
+            </Router>
         )
     }
 }

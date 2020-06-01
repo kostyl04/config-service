@@ -1,4 +1,5 @@
-import {View} from "./headerView";
+import View from "./headerView";
+import configServiceClient from "../../client/client"
 
 const React = require('react');
 
@@ -6,21 +7,24 @@ export default class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.onApplicationChange = this.onApplicationChange.bind(this);
+        this.state = {
+            applications: []
+        };
+
     }
 
     componentDidMount() {
-
-    }
-
-    onApplicationChange(appName) {
-        console.log(appName)
-        this.props.onApplicationChange(appName);
+        let that = this;
+        configServiceClient.getApplicationNames().then((apps) => {
+            that.setState({
+                applications: apps
+            });
+        });
     }
 
     render() {
         return (
-            <View onApplicationChange={this.onApplicationChange} applications={this.props.applications}/>
+            <View applications={this.state.applications}/>
         )
     }
 }

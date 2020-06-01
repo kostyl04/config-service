@@ -17,11 +17,11 @@ import java.util.Set;
 public class Meta {
 
     @Include
-    @NotBlank
-    @Pattern(regexp = "\\w{3,}")
+    @NotBlank(message = "meta.name")
+    @Pattern(regexp = "\\w{3,}", message = "meta.name")
     private String name;
-    @NotEmpty
+    @NotEmpty(message = "meta.fields")
     private Set<@Valid Field> fields;
-    @Pattern(regexp = "[:.,_-]")
+    @Pattern(regexp = "[:.,_-]", message = "meta.keyDelimiter")
     private String keyDelimiter;
 }

@@ -13,7 +13,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.lang.NonNull;
 
 @Configuration
-@SuppressWarnings("SpringFacetCodeInspection")
 public class ParameterContainersBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
 
     private ConfigProviderProperties configuration;

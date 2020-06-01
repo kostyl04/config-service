@@ -3,15 +3,18 @@ package com.kostylenko.config_service.config_service_rest.util;
 import com.kostylenko.common.common_mapper.domain.converter.BaseConverter;
 import com.kostylenko.common.common_mapper.domain.mapper.DefaultMapper;
 import com.kostylenko.common.common_mapper.domain.mapper.Mapper;
+import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
 @SuppressWarnings("unchecked")
+@Slf4j
 public class MapperUtil {
 
     public static final Mapper MAPPER;
@@ -24,9 +27,10 @@ public class MapperUtil {
                 Constructor<? extends BaseConverter> constructor = converterClazz.getConstructor();
                 return constructor.newInstance();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.warn("Cannot create {}", converterClazz);
+                return null;
             }
-        }).collect(toList());
+        }).filter(Objects::nonNull).collect(toList());
         MAPPER = new DefaultMapper((List<BaseConverter>) converters);
     }
 
