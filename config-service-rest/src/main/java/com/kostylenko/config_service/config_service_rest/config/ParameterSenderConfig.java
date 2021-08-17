@@ -13,12 +13,6 @@ public class ParameterSenderConfig {
     @Value("${jms.broker.url}")
     private String brokerUrl;
 
-    @Value("${jms.broker.username}")
-    private String brokerUsername;
-
-    @Value("${jms.broker.password}")
-    private String brokerPassword;
-
     @Value("${jms.activemq.topic-name}")
     private String topicName;
 
@@ -26,8 +20,6 @@ public class ParameterSenderConfig {
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(brokerUrl);
-        connectionFactory.setUserName(brokerUsername);
-        connectionFactory.setPassword(brokerPassword);
         return connectionFactory;
     }
 
