@@ -14,7 +14,7 @@
     <name>config-provider-autoconfiguration</name>
 
     <properties>
-        <config.provider.version>0.0.1-SNAPSHOT</config.provider.version>
+        <config.provider.version>${project.version}</config.provider.version>
         <spring.boot.configuration.processor.version>2.2.6.RELEASE</spring.boot.configuration.processor.version>
     </properties>
 
