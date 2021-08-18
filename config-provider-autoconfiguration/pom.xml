@@ -23,7 +23,6 @@
         <dependency>
             <groupId>com.kostylenko</groupId>
             <artifactId>config-provider</artifactId>
-            <version>${config.provider.version}</version>
         </dependency>
 
         <dependency>
