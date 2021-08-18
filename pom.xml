@@ -43,6 +43,12 @@
                 <artifactId>common-http-autoconfiguration</artifactId>
                 <version>${common.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>com.kostylenko</groupId>
+                <artifactId>config-provider</artifactId>
+                <version>${config.provider.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.kostylenko</groupId>
