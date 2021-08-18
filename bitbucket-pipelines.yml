@@ -4,7 +4,7 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: 
-        name: kostylenko/my-rep:latest
+        name: kastylenka.jfrog.io/bitbucket-images/bitbucket-maven:latest
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
 
@@ -17,4 +17,15 @@ pipelines:
             - maven
           script: # Modify the commands below to build your repository.
             - mvn -B test # -B batch mode makes Maven less verbose
+  custom:
+    release:
+      - step:
+          script:
+            - mvn versions:set -DremoveSnapshot
+            - mvn clean deploy
+            - mvn versions:set -DnextSnapshot=true
+            - git add -u
+            - git pull
+            - git commit -m "new snapshot version"
+            - git push origin master
 
