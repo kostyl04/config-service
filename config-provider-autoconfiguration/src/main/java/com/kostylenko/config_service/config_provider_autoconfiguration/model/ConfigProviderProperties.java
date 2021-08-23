@@ -17,6 +17,7 @@ public class ConfigProviderProperties {
     private String brokerUrl;
     private String appName;
     private List<Config> configs;
+    private Migration migration;
 
     public List<Config> getConfigs() {
         configs.forEach(config -> config.setAppName(appName));

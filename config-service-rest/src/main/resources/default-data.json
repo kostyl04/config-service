@@ -1,0 +1,190 @@
+{
+  "meta": [
+    {
+      "fields": [
+        {
+          "immutable": true,
+          "index": 0,
+          "key": true,
+          "name": "name",
+          "nullable": false,
+          "type": "STRING"
+        },
+        {
+          "immutable": true,
+          "index": 1,
+          "key": true,
+          "name": "lang",
+          "nullable": false,
+          "type": "STRING"
+        },
+        {
+          "immutable": false,
+          "index": 2,
+          "key": false,
+          "name": "text",
+          "nullable": true,
+          "type": "STRING"
+        }
+      ],
+      "keyDelimiter": ":",
+      "name": "messages"
+    },
+    {
+      "fields": [
+        {
+          "immutable": true,
+          "index": 0,
+          "key": true,
+          "name": "name",
+          "nullable": false,
+          "type": "STRING"
+        },
+        {
+          "immutable": true,
+          "index": 1,
+          "key": false,
+          "name": "type",
+          "nullable": false,
+          "type": "STRING"
+        },
+        {
+          "immutable": false,
+          "index": 2,
+          "key": false,
+          "name": "value",
+          "nullable": true,
+          "type": "STRING"
+        }
+      ],
+      "keyDelimiter": ":",
+      "name": "properties"
+    }
+  ],
+  "configs": [
+    {
+      "configKey": {
+        "appName": "config-service",
+        "configName": "errors",
+        "version": "1.0"
+      },
+      "meta": {
+        "name": "messages"
+      },
+      "parameters": [
+        {
+          "value": {
+            "name": "empty.meta.fields",
+            "lang": "en",
+            "text": "Meta must not have empty field set."
+          }
+        },
+        {
+          "value": {
+            "name": "key.field.not.found",
+            "lang": "en",
+            "text": "Meta must have at least one key field."
+          }
+        },
+        {
+          "value": {
+            "name": "meta.not.found",
+            "lang": "en",
+            "text": "Meta not found."
+          }
+        },
+        {
+          "value": {
+            "name": "meta.already.exists",
+            "lang": "en",
+            "text": "Meta already exists."
+          }
+        },
+        {
+          "value": {
+            "name": "key.field.index.is.null",
+            "lang": "en",
+            "text": "Key field index must not be null."
+          }
+        },
+        {
+          "value": {
+            "name": "key.fields.indexes.are.not.unique",
+            "lang": "en",
+            "text": "Fields indexes must be unique."
+          }
+        },
+        {
+          "value": {
+            "name": "config.already.exists",
+            "lang": "en",
+            "text": "Config already exists."
+          }
+        },
+        {
+          "value": {
+            "name": "config.not.found",
+            "lang": "en",
+            "text": "Config not found."
+          }
+        },
+        {
+          "value": {
+            "name": "corrupted.config",
+            "lang": "en",
+            "text": "Config is corrupted."
+          }
+        },
+        {
+          "value": {
+            "name": "no.config.to.update",
+            "lang": "en",
+            "text": "No config to update."
+          }
+        },
+        {
+          "value": {
+            "name": "key.value.cannot.be.null",
+            "lang": "en",
+            "text": "Key value must not be null."
+          }
+        },
+        {
+          "value": {
+            "name": "value.cannot.be.null",
+            "lang": "en",
+            "text": "Value cannot be null."
+          }
+        },
+        {
+          "value": {
+            "name": "parameter.already.exists",
+            "lang": "en",
+            "text": "Parameter already exists."
+          }
+        },
+        {
+          "value": {
+            "name": "parameter.does.not.exist",
+            "lang": "en",
+            "text": "Parameter does not exist."
+          }
+        },
+        {
+          "value": {
+            "name": "parameters.not.found",
+            "lang": "en",
+            "text": "Parameters not found."
+          }
+        },
+        {
+          "value": {
+            "name": "value.is.not.valid",
+            "lang": "en",
+            "text": "Value is not valid."
+          }
+        }
+      ]
+    }
+  ]
+}

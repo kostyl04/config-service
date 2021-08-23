@@ -2,6 +2,7 @@ package com.kostylenko.config_service.config_provider_autoconfiguration.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kostylenko.config_service.config_provider.client.ConfigServiceClient;
+import com.kostylenko.config_service.config_provider.client.ImportDataClient;
 import com.kostylenko.config_service.config_provider.container.ParameterContainer;
 import com.kostylenko.config_service.config_provider.manager.ContainerParameterManager;
 import com.kostylenko.config_service.config_provider.manager.ParameterManager;
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
 import java.util.Set;
@@ -35,15 +37,31 @@ public class ConfigProviderAutoConfiguration {
     private static final String TOPIC_NAME = "config-service.parameters";
 
     @Bean
+    public OkHttpClient okHttpClient() {
+        return new OkHttpClient();
+    }
+
+    @Bean
     @ConditionalOnMissingBean(ConfigServiceClient.class)
     public ConfigServiceClient configServiceClient() {
         return Feign.builder()
-                .client(new OkHttpClient())
+                .client(okHttpClient())
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
                 .logger(new Slf4jLogger(ConfigServiceClient.class))
                 .logLevel(Logger.Level.FULL)
                 .target(ConfigServiceClient.class, properties.getUrl());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ImportDataClient.class)
+    public ImportDataClient dataMigrationClient() {
+        return Feign.builder()
+                .client(okHttpClient())
+                .decoder(new JacksonDecoder())
+                .logger(new Slf4jLogger(ConfigServiceClient.class))
+                .logLevel(Logger.Level.FULL)
+                .target(ImportDataClient.class, properties.getUrl());
     }
 
     @Bean
@@ -53,6 +71,7 @@ public class ConfigProviderAutoConfiguration {
     }
 
     @Bean
+    @DependsOn("dataInitializer")
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @ConditionalOnMissingBean(ParameterManager.class)
     public ParameterManager parameterManager(Set<ParameterContainer> containers, ConfigServiceClient configServiceClient) {

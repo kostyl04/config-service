@@ -1,5 +1,5 @@
 mongodb:
-  connection-string: mongodb://mongo1:30001,mongo2:30002/config-service?replicaSet=rs0&readPreference=secondaryPreferred&appname=config-service&ssl=false
+  connection-string: mongodb://mongo1:30001,mongo2:30002/config-service?replicaSet=rs0&readPreference=primary&appname=config-service&ssl=false
   database-name: config-service
 
 jms:
@@ -10,6 +10,13 @@ jms:
 
 logging:
   level:
+    com:
+      kostylenko:
+        config_service:
+          config_service_rest:
+            domain:
+              service: DEBUG
+
     org:
       springframework:
         data:
@@ -25,3 +32,6 @@ config-provider:
       clazz: com.kostylenko.config_service.config_provider.common_config.Message
       beanName: errors
   broker-url: tcp://localhost:61616
+  migration:
+    enabled: true
+    fileLocation: config-service-rest/src/main/resources/default-data.json

@@ -9,12 +9,12 @@ import feign.RequestLine;
 @Headers("Content-Type: application/json")
 public interface ConfigServiceClient {
 
-    @RequestLine("GET /{appName}/{configName}/{version}")
+    @RequestLine("GET /configs/{appName}/{configName}/{version}")
     Config getConfig(@Param("appName") String appName,
                      @Param("configName") String configName,
                      @Param("version") String version);
 
-    @RequestLine("GET /{appName}/{configName}/{version}/parameters/{name}")
+    @RequestLine("GET /configs/{appName}/{configName}/{version}/parameters/{name}")
     Parameter getParameter(@Param("appName") String appName,
                            @Param("configName") String configName,
                            @Param("version") String version,

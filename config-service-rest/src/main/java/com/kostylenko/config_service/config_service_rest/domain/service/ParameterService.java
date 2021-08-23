@@ -82,6 +82,20 @@ public class ParameterService {
         return receivedParameter;
     }
 
+    public Parameter parameterForceUpdate(Parameter parameter, Config config) {
+        var dataParameterKey = mapper.map(parameter.getParameterKey(), com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
+        Parameter existingParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
+        if (nonNull(existingParameter)) {
+            parameter.setId(existingParameter.getId());
+        }
+        var savedParameter = parameterRepository.save(mapper.map(parameter, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class));
+        Parameter savedDomainParameter = mapper.map(savedParameter, Parameter.class);
+        Config existingConfig = configService.getConfig(config.getConfigKey());
+        existingConfig.addParameter(savedDomainParameter);
+        configService.updateConfig(existingConfig);
+        return savedDomainParameter;
+    }
+
     public Set<Parameter> getParameters(ConfigKey configKey) {
         Config config = configService.getConfig(configKey);
         Set<Parameter> parameters = config.getParameters();
