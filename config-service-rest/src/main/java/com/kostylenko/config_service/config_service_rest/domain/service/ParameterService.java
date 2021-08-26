@@ -77,7 +77,7 @@ public class ParameterService {
         var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         Parameter receivedParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
         if (isNull(receivedParameter)) {
-            throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
+            throw new BadRequestApiException(PARAMETER_DOES_NOT_EXIST);
         }
         return receivedParameter;
     }
@@ -113,7 +113,7 @@ public class ParameterService {
                 Parameter oldParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
                 if (isNull(oldParameter)) {
                     log.warn("Parameter {} doesn't exists", parameter.getParameterKey());
-                    throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
+                    throw new BadRequestApiException(PARAMETER_DOES_NOT_EXIST);
                 }
                 Map<String, Object> oldParameterValue = oldParameter.getValue();
                 ConfigKey configKey = mapper.map(oldParameter.getParameterKey(), ConfigKey.class);

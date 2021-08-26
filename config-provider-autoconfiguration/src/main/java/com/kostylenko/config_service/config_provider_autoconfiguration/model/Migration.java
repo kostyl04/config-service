@@ -8,5 +8,5 @@ import lombok.Setter;
 public class Migration {
 
     private boolean enabled;
-    private String fileLocation;
+    private String dataLocation;
 }
