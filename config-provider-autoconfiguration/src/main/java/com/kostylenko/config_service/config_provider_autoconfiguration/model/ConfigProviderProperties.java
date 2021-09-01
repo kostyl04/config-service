@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @Setter
 @Component
@@ -17,9 +19,17 @@ public class ConfigProviderProperties {
     private String brokerUrl;
     private String appName;
     private List<Config> configs;
+    private Migration migration;
 
     public List<Config> getConfigs() {
         configs.forEach(config -> config.setAppName(appName));
         return configs;
+    }
+
+    public Migration getMigration() {
+        if (isNull(migration)) {
+            migration = new Migration();
+        }
+        return migration;
     }
 }

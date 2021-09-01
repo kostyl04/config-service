@@ -19,12 +19,12 @@ public class MetaValidator {
 
     public void validate(Meta meta) {
         if (isNull(meta.getFields()) || isEmpty(meta.getFields())) {
-            log.warn("Meta shouldn't have empty set of fields");
+            log.warn("Meta must not have empty set of fields");
             throw new BadRequestApiException(EMPTY_META_FIELDS);
         }
         List<Field> keyFields = meta.getFields().stream().filter(Field::isKey).collect(toList());
         if (isEmpty(keyFields)) {
-            log.warn("Meta should have at least one key field");
+            log.warn("Meta must have at least one key field");
             throw new BadRequestApiException(KEY_FIELD_NOT_FOUND);
         }
         if (keyFields.size() == 1) {
@@ -32,12 +32,12 @@ public class MetaValidator {
         } else {
             keyFields.forEach(keyField -> {
                 if (isNull(keyField.getIndex())) {
-                    log.warn("Key field index cannot be null");
+                    log.warn("Key field index must not be null");
                     throw new BadRequestApiException(KEY_FIELD_INDEX_IS_NULL);
                 }
                 long keyFieldCount = keyFields.stream().mapToInt(Field::getIndex).distinct().count();
                 if (keyFieldCount != keyFields.size()) {
-                    log.warn("Fields indexes should be unique");
+                    log.warn("Fields indexes must be unique");
                     throw new BadRequestApiException(KEY_FIELDS_INDEXES_ARE_NOT_UNIQUE);
                 }
             });

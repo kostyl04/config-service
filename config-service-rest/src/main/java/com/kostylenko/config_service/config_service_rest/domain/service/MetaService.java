@@ -47,6 +47,10 @@ public class MetaService {
         return meta;
     }
 
+    public boolean isMetaExist(String name) {
+        return metaRepository.existsByName(name);
+    }
+
     public List<Meta> getMetas() {
         List<Meta> metas = mapper.mapToList(metaRepository.findAll(), Meta.class);
         if (isEmpty(metas)) {

@@ -77,9 +77,23 @@ public class ParameterService {
         var dataParameterKey = mapper.map(parameterKey, com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         Parameter receivedParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
         if (isNull(receivedParameter)) {
-            throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
+            throw new BadRequestApiException(PARAMETER_DOES_NOT_EXIST);
         }
         return receivedParameter;
+    }
+
+    public Parameter createOrUpdateParameter(Parameter parameter, Config config) {
+        var dataParameterKey = mapper.map(parameter.getParameterKey(), com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
+        Parameter existingParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
+        if (nonNull(existingParameter)) {
+            parameter.setId(existingParameter.getId());
+        }
+        var savedParameter = parameterRepository.save(mapper.map(parameter, com.kostylenko.config_service.config_service_rest.data.entity.Parameter.class));
+        Parameter savedDomainParameter = mapper.map(savedParameter, Parameter.class);
+        Config existingConfig = configService.getConfig(config.getConfigKey());
+        existingConfig.addParameter(savedDomainParameter);
+        configService.updateConfig(existingConfig);
+        return savedDomainParameter;
     }
 
     public Set<Parameter> getParameters(ConfigKey configKey) {
@@ -99,7 +113,7 @@ public class ParameterService {
                 Parameter oldParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
                 if (isNull(oldParameter)) {
                     log.warn("Parameter {} doesn't exists", parameter.getParameterKey());
-                    throw new BadRequestApiException(PARAMETER_DOES_NOT_EXISTS);
+                    throw new BadRequestApiException(PARAMETER_DOES_NOT_EXIST);
                 }
                 Map<String, Object> oldParameterValue = oldParameter.getValue();
                 ConfigKey configKey = mapper.map(oldParameter.getParameterKey(), ConfigKey.class);
