@@ -30,21 +30,21 @@ public class ImportDataService {
 
     public void importData(ImportData importData) {
         log.info("Data importing has been started");
-        metaImport(importData.getMeta());
-        configImport(importData.getConfigs());
+        importMeta(importData.getMeta());
+        importConfigs(importData.getConfigs());
         log.info("Data have been successfully imported");
     }
 
-    private void metaImport(List<Meta> metaSet) {
+    private void importMeta(List<Meta> metaSet) {
         metaSet.forEach(meta -> {
-            if (!metaService.metaExists(meta.getName())) {
+            if (!metaService.isMetaExist(meta.getName())) {
                 Meta createdMeta = metaService.createMeta(meta);
                 log.debug("Meta successfully created: {}", createdMeta.getName());
             }
         });
     }
 
-    private void configImport(List<com.kostylenko.config_service.config_service_rest.domain.model.importing.Config> configs) {
+    private void importConfigs(List<com.kostylenko.config_service.config_service_rest.domain.model.importing.Config> configs) {
         configs.forEach(importConfig -> {
             Config config = configService.getConfig(importConfig.getConfigKey());
             if (isNull(config)) {
@@ -55,13 +55,13 @@ public class ImportDataService {
             final Config createdConfig = config;
             Set<Parameter> parameters = buildParametersWithParameterKey(importConfig.getParameters(), createdConfig);
             createdConfig.setParameters(parameters);
-            parameterImport(createdConfig.getParameters(), createdConfig);
+            importParameters(createdConfig.getParameters(), createdConfig);
         });
     }
 
-    private void parameterImport(Set<Parameter> parameters, Config config) {
+    private void importParameters(Set<Parameter> parameters, Config config) {
         parameters.forEach(parameter -> {
-            Parameter savedParameter = parameterService.parameterForceUpdate(parameter, config);
+            Parameter savedParameter = parameterService.createOrUpdateParameter(parameter, config);
             log.debug("Parameter successfully saved: {}", savedParameter.getParameterKey());
         });
     }

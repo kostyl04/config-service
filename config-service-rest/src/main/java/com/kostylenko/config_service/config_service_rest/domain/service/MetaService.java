@@ -47,7 +47,7 @@ public class MetaService {
         return meta;
     }
 
-    public boolean metaExists(String name) {
+    public boolean isMetaExist(String name) {
         return metaRepository.existsByName(name);
     }
 

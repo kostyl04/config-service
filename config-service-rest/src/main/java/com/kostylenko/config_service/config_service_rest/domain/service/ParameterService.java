@@ -82,7 +82,7 @@ public class ParameterService {
         return receivedParameter;
     }
 
-    public Parameter parameterForceUpdate(Parameter parameter, Config config) {
+    public Parameter createOrUpdateParameter(Parameter parameter, Config config) {
         var dataParameterKey = mapper.map(parameter.getParameterKey(), com.kostylenko.config_service.config_service_rest.data.model.ParameterKey.class);
         Parameter existingParameter = mapper.map(parameterRepository.findByParameterKey(dataParameterKey), Parameter.class);
         if (nonNull(existingParameter)) {

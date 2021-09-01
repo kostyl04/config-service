@@ -28,7 +28,7 @@ public class ConfigProviderProperties {
 
     public Migration getMigration() {
         if (isNull(migration)) {
-            return new Migration();
+            migration = new Migration();
         }
         return migration;
     }
