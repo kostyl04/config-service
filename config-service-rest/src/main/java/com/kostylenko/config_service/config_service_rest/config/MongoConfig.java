@@ -1,5 +1,6 @@
 package com.kostylenko.config_service.config_service_rest.config;
 
+import com.github.mongobee.Mongobee;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.lang.NonNull;
@@ -18,6 +19,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Value("${mongodb.database-name}")
     private String databaseName;
 
+    private static final String CHANGELOGS_PACKAGE = "com.kostylenko.config_service.config_service_rest.changelogs";
 
     @NonNull
     @Override
@@ -39,5 +41,13 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Bean
     MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
+    }
+
+    @Bean
+    public Mongobee mongobee() {
+        Mongobee runner = new Mongobee(mongodbConnectionString);
+        runner.setDbName(databaseName);
+        runner.setChangeLogsScanPackage(CHANGELOGS_PACKAGE);
+        return runner;
     }
 }

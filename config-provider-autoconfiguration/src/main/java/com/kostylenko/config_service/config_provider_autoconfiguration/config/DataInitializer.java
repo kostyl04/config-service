@@ -6,6 +6,7 @@ import com.kostylenko.config_service.config_provider_autoconfiguration.model.Con
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +21,7 @@ import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Component
+@DependsOn("mongobee")
 @RequiredArgsConstructor
 public class DataInitializer {
 
