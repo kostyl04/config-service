@@ -25,7 +25,8 @@
         <mockito.junit.jupiter.version>2.23.4</mockito.junit.jupiter.version>
         <swagger.version>2.9.2</swagger.version>
         <commons.collections.version>4.4</commons.collections.version>
-        <reflections.version>0.9.12</reflections.version>
+        <reflections.version>0.9.11</reflections.version>
+        <mongobee.version>0.13</mongobee.version>
     </properties>
 
     <modules>
@@ -43,7 +44,7 @@
                 <artifactId>common-http-autoconfiguration</artifactId>
                 <version>${common.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>com.kostylenko</groupId>
                 <artifactId>config-provider</artifactId>
@@ -83,6 +84,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.github.mongobee</groupId>
+                <artifactId>mongobee</artifactId>
+                <version>${mongobee.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -110,7 +117,6 @@
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>${reflections.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
