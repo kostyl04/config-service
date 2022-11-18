@@ -7,3 +7,5 @@ Contains:
  Library to set up required properties, init them, and process updates.
 ## Config provider autoconfiguration
  Spring boot starter to init config provider beans.
+## config-service-web
+UI client to manage properties
